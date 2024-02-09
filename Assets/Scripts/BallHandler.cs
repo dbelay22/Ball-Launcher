@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class BallHandler : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D _currentBallRB;
+
     Camera _mainCamera;
 
     void Start()
@@ -21,7 +23,11 @@ public class BallHandler : MonoBehaviour
     {
         UnityEngine.InputSystem.Controls.TouchControl touch = Touchscreen.current.primaryTouch;
 
-        if (!touch.press.isPressed)
+        bool isPressed = touch.press.isPressed;
+
+        SetKinematic(isPressed);
+
+        if (!isPressed)
         {
             return;
         }       
@@ -37,6 +43,13 @@ public class BallHandler : MonoBehaviour
 
         Vector3 touchWorldPos = _mainCamera.ScreenToWorldPoint(touchScreenPos);
 
-        Debug.Log($"[BallHandler] touchWorldPos: {touchWorldPos}, touchScreenPos: {touchScreenPos}");
+        //Debug.Log($"[BallHandler] touchWorldPos: {touchWorldPos}, touchScreenPos: {touchScreenPos}");
+
+        _currentBallRB.position = touchWorldPos;
+    }
+
+    void SetKinematic(bool kinematic)
+    {
+        _currentBallRB.isKinematic = kinematic;
     }
 }
