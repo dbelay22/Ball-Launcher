@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -105,17 +102,19 @@ public class BallHandler : MonoBehaviour
 
     void OnTouchRelease()
     {
-        // finger out
+        // was dragging ?
         if (_isDragging)
         {
             _isDragging = false;
 
-            LaunchBall();
+            LaunchBall();           
         }
-    }
+    }    
 
     void SpawnBall()
     {
+        Debug.Log("SpawnBall) ...");
+
         if (_ballInstance != null)
         {
             // destroy previous ball instance
@@ -132,6 +131,9 @@ public class BallHandler : MonoBehaviour
         _currentBallRB = _ballInstance.GetComponent<Rigidbody2D>();
 
         _currentBallSpringJoint = _ballInstance.GetComponent<SpringJoint2D>();
+        
+        // connect ball to pivot
+        _currentBallSpringJoint.connectedBody = _pivot;
 
         // enable spring joint
         EnableSpringJoint(true);
@@ -166,14 +168,14 @@ public class BallHandler : MonoBehaviour
         // re-enable physics for the ball's RB
         SetKinematic(false);
 
-        Invoke(nameof(DisableSpringJoint), 0.5f);
-
-        Invoke(nameof(SpawnBall), 3f);
+        Invoke(nameof(DetachBall), _detachDelay);
     }
 
-    void DisableSpringJoint()
+    void DetachBall()
     {
         EnableSpringJoint(false);
+
+        Invoke(nameof(SpawnBall), _respawnDelay);
     }
 
     void SetKinematic(bool kinematic)
