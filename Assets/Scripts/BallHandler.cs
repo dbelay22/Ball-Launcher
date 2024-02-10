@@ -9,6 +9,8 @@ public class BallHandler : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _currentBallRB;
 
+    [SerializeField] private SpringJoint2D _currentBallSpringJoint;
+
     bool _serializedFieldsError = false;
 
     Camera _mainCamera;
@@ -33,6 +35,12 @@ public class BallHandler : MonoBehaviour
             Debug.LogError("BallHandler] _currentBallRB is invalid");
             _serializedFieldsError = true;
         }
+
+        if (_currentBallSpringJoint == null)
+        {
+            Debug.LogError("BallHandler] _currentBallSpringJoint is invalid");
+            _serializedFieldsError = true;
+        }
     }
 
     bool AnyError()
@@ -42,13 +50,17 @@ public class BallHandler : MonoBehaviour
 
     void Start()
     {
-        _mainCamera = Camera.main;
-
-        _touch = Touchscreen.current.primaryTouch;
+        if (AnyError()) { return; }
 
         _isDragging = false;
 
         _launchedBall = false;
+
+        _mainCamera = Camera.main;
+
+        _touch = Touchscreen.current.primaryTouch;
+
+        EnableSpringJoint(true);
     }
 
     void Update()
@@ -121,12 +133,26 @@ public class BallHandler : MonoBehaviour
         // re-enable physics for the ball's RB
         SetKinematic(false);
 
+        StartCoroutine(DisableSpringJointDelayed());
+
         _launchedBall = true;
+    }
+
+    IEnumerator DisableSpringJointDelayed()
+    {
+        yield return new WaitForSeconds(1f);
+
+        EnableSpringJoint(false);        
     }
 
     void SetKinematic(bool kinematic)
     {
         _currentBallRB.isKinematic = kinematic;
+    }
+
+    void EnableSpringJoint(bool enable)
+    {
+        _currentBallSpringJoint.enabled = enable;
     }
 
     bool touchIsPressed()
