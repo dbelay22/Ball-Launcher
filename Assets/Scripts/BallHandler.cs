@@ -119,7 +119,7 @@ public class BallHandler : MonoBehaviour
         if (_ballInstance != null)
         {
             // destroy previous ball instance
-            Destroy(_ballInstance);            
+            Destroy(_ballInstance, 1f);
         }
 
         // new ball !!

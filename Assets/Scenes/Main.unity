@@ -1215,21 +1215,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 460166471}
     - target: {fileID: 8081655694842989450, guid: b0ee471b70016224f93d5e74d14343b5, type: 3}
-      propertyPath: _ballPrefab
-      value: 
-      objectReference: {fileID: 5929852963506279755, guid: 76326e288c35eac47a37285caec86fd5, type: 3}
-    - target: {fileID: 8081655694842989450, guid: b0ee471b70016224f93d5e74d14343b5, type: 3}
-      propertyPath: _detachDelay
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8081655694842989450, guid: b0ee471b70016224f93d5e74d14343b5, type: 3}
       propertyPath: _clonesParent
       value: 
       objectReference: {fileID: 1910910346}
-    - target: {fileID: 8081655694842989450, guid: b0ee471b70016224f93d5e74d14343b5, type: 3}
-      propertyPath: _respawnDelay
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8081655694842989451, guid: b0ee471b70016224f93d5e74d14343b5, type: 3}
       propertyPath: m_RootOrder
       value: 0
