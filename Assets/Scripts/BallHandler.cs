@@ -133,16 +133,13 @@ public class BallHandler : MonoBehaviour
         // re-enable physics for the ball's RB
         SetKinematic(false);
 
-        StartCoroutine(DisableSpringJointDelayed());
+        Invoke(nameof(DisableSpringJoint), 0.5f);
 
         _launchedBall = true;
     }
-
-    IEnumerator DisableSpringJointDelayed()
+    void DisableSpringJoint()
     {
-        yield return new WaitForSeconds(1f);
-
-        EnableSpringJoint(false);        
+        EnableSpringJoint(false);
     }
 
     void SetKinematic(bool kinematic)
