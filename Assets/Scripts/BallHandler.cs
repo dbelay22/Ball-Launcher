@@ -9,8 +9,8 @@ public class BallHandler : MonoBehaviour
 {
     [SerializeField] private GameObject _clonesParent;
     [SerializeField] private GameObject _ballPrefab;
-    [SerializeField] private Rigidbody2D _pivot;    
-    [SerializeField] private float _detachDelay;    
+    [SerializeField] private Rigidbody2D _pivot;
+    [SerializeField] private float _detachDelay;
     [SerializeField] private float _respawnDelay;
 
     bool _serializedFieldsError = false;
