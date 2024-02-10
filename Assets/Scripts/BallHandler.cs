@@ -7,9 +7,11 @@ using UnityEngine.InputSystem.Controls;
 
 public class BallHandler : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _currentBallRB;
-
-    [SerializeField] private SpringJoint2D _currentBallSpringJoint;
+    [SerializeField] private GameObject _clonesParent;
+    [SerializeField] private GameObject _ballPrefab;
+    [SerializeField] private Rigidbody2D _pivot;    
+    [SerializeField] private float _detachDelay;    
+    [SerializeField] private float _respawnDelay;
 
     bool _serializedFieldsError = false;
 
@@ -19,7 +21,11 @@ public class BallHandler : MonoBehaviour
 
     bool _isDragging;
 
-    bool _launchedBall;
+    Rigidbody2D _currentBallRB;
+
+    SpringJoint2D _currentBallSpringJoint;
+
+    GameObject _ballInstance;
 
     void Awake()
     {
@@ -30,15 +36,21 @@ public class BallHandler : MonoBehaviour
     {
         _serializedFieldsError = false;
 
-        if (_currentBallRB == null)
+        if (_clonesParent == null)
         {
-            Debug.LogError("BallHandler] _currentBallRB is invalid");
+            Debug.LogError("BallHandler] _clonesParent is invalid");
             _serializedFieldsError = true;
         }
 
-        if (_currentBallSpringJoint == null)
+        if (_ballPrefab == null)
         {
-            Debug.LogError("BallHandler] _currentBallSpringJoint is invalid");
+            Debug.LogError("BallHandler] _ballPrefab is invalid");
+            _serializedFieldsError = true;
+        }
+
+        if (_pivot == null)
+        {
+            Debug.LogError("BallHandler] _pivot is invalid");
             _serializedFieldsError = true;
         }
     }
@@ -54,20 +66,18 @@ public class BallHandler : MonoBehaviour
 
         _isDragging = false;
 
-        _launchedBall = false;
+        _ballInstance = null;
 
         _mainCamera = Camera.main;
 
         _touch = Touchscreen.current.primaryTouch;
 
-        EnableSpringJoint(true);
+        SpawnBall();
     }
 
     void Update()
     {
         if (AnyError() == true) { return; }
-
-        if (_launchedBall == true) { return; }
 
         ProcessInput();
     }
@@ -104,6 +114,29 @@ public class BallHandler : MonoBehaviour
         }
     }
 
+    void SpawnBall()
+    {
+        if (_ballInstance != null)
+        {
+            // destroy previous ball instance
+            Destroy(_ballInstance);            
+        }
+
+        // new ball !!
+        _ballInstance = Instantiate(_ballPrefab, _pivot.position, Quaternion.identity);
+
+        // make it a child of "clones" empty object
+        _ballInstance.transform.parent = _clonesParent.transform;
+
+        // get components
+        _currentBallRB = _ballInstance.GetComponent<Rigidbody2D>();
+
+        _currentBallSpringJoint = _ballInstance.GetComponent<SpringJoint2D>();
+
+        // enable spring joint
+        EnableSpringJoint(true);
+    }
+
     void DragBall()
     {
         // disable physics for the ball's RB
@@ -135,8 +168,9 @@ public class BallHandler : MonoBehaviour
 
         Invoke(nameof(DisableSpringJoint), 0.5f);
 
-        _launchedBall = true;
+        Invoke(nameof(SpawnBall), 3f);
     }
+
     void DisableSpringJoint()
     {
         EnableSpringJoint(false);

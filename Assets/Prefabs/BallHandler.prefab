@@ -44,5 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd72a6935d7138e4abcb2d9d9f05bd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentBallRB: {fileID: 0}
-  _currentBallSpringJoint: {fileID: 0}
+  _clonesParent: {fileID: 0}
+  _ballPrefab: {fileID: 5929852963506279755, guid: 76326e288c35eac47a37285caec86fd5, type: 3}
+  _pivot: {fileID: 0}
+  _detachDelay: 0.3
+  _respawnDelay: 5
