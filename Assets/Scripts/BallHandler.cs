@@ -113,12 +113,12 @@ public class BallHandler : MonoBehaviour
 
     void SpawnBall()
     {
-        Debug.Log("SpawnBall) ...");
+        //Debug.Log("SpawnBall) ...");
 
         if (_ballInstance != null)
         {
             // destroy previous ball instance
-            Destroy(_ballInstance, 1f);
+            Destroy(_ballInstance, _respawnDelay);
         }
 
         // new ball !!
