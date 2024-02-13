@@ -207,7 +207,7 @@ public class BallHandler : MonoBehaviour
 
         if (Touch.activeTouches.Count > 1)
         {
-            Debug.Log($"Touch activeTouches now is {Touch.activeTouches}");
+            Debug.Log($"Touch activeTouches now is {Touch.activeTouches.Count}");
         }
 
         foreach (Touch touch in Touch.activeTouches)
@@ -215,7 +215,17 @@ public class BallHandler : MonoBehaviour
             touchScreenPos += touch.screenPosition;
         }
 
+        Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /BEFORE/");
+        
         touchScreenPos /= Touch.activeTouches.Count;
+
+        Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /AFTER/");
+
+        if (touchScreenPos.x.Equals(float.PositiveInfinity) ||
+            touchScreenPos.y.Equals(float.PositiveInfinity))
+        {
+            return Vector3.one;
+        }
 
         // convert screen -> world position
         Vector3 touchWorldPos = _mainCamera.ScreenToWorldPoint(touchScreenPos);
