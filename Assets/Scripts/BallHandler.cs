@@ -22,9 +22,18 @@ public class BallHandler : MonoBehaviour
 
     GameObject _ballInstance;
 
+    bool _canDragBall;
+
     void Awake()
     {
         CheckSerializedFields();
+
+        if (AnyError())
+        {
+            return;
+        }
+
+        Application.targetFrameRate = 30;
     }
 
     void CheckSerializedFields() 
@@ -76,9 +85,13 @@ public class BallHandler : MonoBehaviour
 
         _isDragging = false;
 
+        _canDragBall = false;
+
         _ballInstance = null;
 
         _mainCamera = Camera.main;
+
+        Debug.Log("Start) Spawnining ball...");
 
         SpawnBall();
     }
@@ -111,9 +124,13 @@ public class BallHandler : MonoBehaviour
     {
         //Debug.Log("OnTouchPressing)...");
 
-        _isDragging = true;
+        if (_canDragBall)
+        {
+            _isDragging = true;
 
-        DragBall();
+            DragBall();
+        }
+
     }
 
     void OnTouchRelease()
@@ -125,19 +142,15 @@ public class BallHandler : MonoBehaviour
         {
             _isDragging = false;
 
+            _canDragBall = false;
+
             LaunchBall();           
         }
     }    
 
     void SpawnBall()
     {
-        //Debug.Log("SpawnBall) ...");
-
-        if (_ballInstance != null)
-        {
-            // destroy previous ball instance
-            Destroy(_ballInstance, _respawnDelay);
-        }
+        Debug.Log("SpawnBall) ...");
 
         // new ball !!
         _ballInstance = Instantiate(_ballPrefab, _pivot.position, Quaternion.identity);
@@ -155,16 +168,23 @@ public class BallHandler : MonoBehaviour
 
         // enable spring joint
         EnableSpringJoint(true);
+
+        _canDragBall = true;
     }
 
     void DragBall()
     {
+        if (!_canDragBall)
+        {
+            return;
+        }
+
         // disable physics for the ball's RB
         SetKinematic(true);
 
         Vector3 touchWorldPos = GetWorldTouchPosition();
 
-        Debug.Log($"[BallHandler] DragBall) touchWorldPos: {touchWorldPos}");
+        //Debug.Log($"[BallHandler] DragBall) touchWorldPos: {touchWorldPos}");
 
         // update ball's rigid body position
         _currentBallRB.position = touchWorldPos;
@@ -181,6 +201,8 @@ public class BallHandler : MonoBehaviour
     void DetachBall()
     {
         EnableSpringJoint(false);
+
+        Debug.Log($"Will invoke SpawnBall in {_respawnDelay} seconds");
 
         Invoke(nameof(SpawnBall), _respawnDelay);
     }
@@ -215,11 +237,11 @@ public class BallHandler : MonoBehaviour
             touchScreenPos += touch.screenPosition;
         }
 
-        Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /BEFORE/");
+        //Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /BEFORE/");
         
         touchScreenPos /= Touch.activeTouches.Count;
 
-        Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /AFTER/");
+        //Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /AFTER/");
 
         if (touchScreenPos.x.Equals(float.PositiveInfinity) ||
             touchScreenPos.y.Equals(float.PositiveInfinity))

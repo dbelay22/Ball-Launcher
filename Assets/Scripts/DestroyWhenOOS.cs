@@ -22,8 +22,10 @@ public class DestroyWhenOOS : MonoBehaviour
         _screenMin = _camera.ViewportToWorldPoint(Vector2.zero);
         _screenMax = _camera.ViewportToWorldPoint(Vector2.one);
         
+        /*
         Debug.Log($"screenMin.x:{_screenMin.x}, screenMin.y={_screenMin.y}");
         Debug.Log($"screenMax.x:{_screenMax.x}, screenMax.y={_screenMax.y}");
+        */
     }
 
     void LateUpdate()
