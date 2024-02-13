@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class BallHandler : MonoBehaviour
 {
@@ -69,6 +70,11 @@ public class BallHandler : MonoBehaviour
 
         _touch = Touchscreen.current.primaryTouch;
 
+        Debug.Log($"DLMB, _touch:{_touch.name}, path:{_touch.path}");
+
+        //Debug.Log($"DLMB,Touchscreen.all.Count:{InputSystem.devices.Count}");
+        Debug.Log($"DLMB, Touchscreen.all.Count (*): {Touchscreen.all.Count}");
+
         SpawnBall();
     }
 
@@ -76,7 +82,15 @@ public class BallHandler : MonoBehaviour
     {
         if (AnyError() == true) { return; }
 
+        DebugInput();
+
         ProcessInput();
+    }
+
+    void DebugInput()
+    {
+        Debug.Log($"DLMB, touch is in progress: {_touch.isInProgress}");
+        Debug.Log($"DLMB, touch is pressed ?: {_touch.IsPressed()}");
     }
 
     void ProcessInput()
