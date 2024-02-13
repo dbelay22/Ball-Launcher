@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.EnhancedTouch;
-
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 public class BallHandler : MonoBehaviour
 {
     [SerializeField] private GameObject _clonesParent;
@@ -14,8 +13,6 @@ public class BallHandler : MonoBehaviour
     bool _serializedFieldsError = false;
 
     Camera _mainCamera;
-
-    TouchControl _touch;
 
     bool _isDragging;
 
@@ -55,7 +52,22 @@ public class BallHandler : MonoBehaviour
 
     bool AnyError()
     {
+        if (_serializedFieldsError == true)
+        {
+            Debug.LogError($"Update) AnyError is TRUE");
+        }
+        
         return _serializedFieldsError;
+    }
+
+    void OnEnable()
+    {
+        EnhancedTouchSupport.Enable();        
+    }
+
+    void OnDisable()
+    {
+        EnhancedTouchSupport.Disable();
     }
 
     void Start()
@@ -68,34 +80,22 @@ public class BallHandler : MonoBehaviour
 
         _mainCamera = Camera.main;
 
-        _touch = Touchscreen.current.primaryTouch;
-
-        Debug.Log($"DLMB, _touch:{_touch.name}, path:{_touch.path}");
-
-        //Debug.Log($"DLMB,Touchscreen.all.Count:{InputSystem.devices.Count}");
-        Debug.Log($"DLMB, Touchscreen.all.Count (*): {Touchscreen.all.Count}");
-
         SpawnBall();
     }
 
     void Update()
     {
-        if (AnyError() == true) { return; }
-
-        DebugInput();
+        if (AnyError() == true)
+        {            
+            return; 
+        }
 
         ProcessInput();
     }
 
-    void DebugInput()
-    {
-        Debug.Log($"DLMB, touch is in progress: {_touch.isInProgress}");
-        Debug.Log($"DLMB, touch is pressed ?: {_touch.IsPressed()}");
-    }
-
     void ProcessInput()
     {
-        bool touchIsPressing = touchIsPressed();
+        bool touchIsPressing = TouchIsPressed();
 
         if (touchIsPressing)
         {
@@ -109,6 +109,8 @@ public class BallHandler : MonoBehaviour
 
     void OnTouchPressing()
     {
+        //Debug.Log("OnTouchPressing)...");
+
         _isDragging = true;
 
         DragBall();
@@ -116,6 +118,8 @@ public class BallHandler : MonoBehaviour
 
     void OnTouchRelease()
     {
+        //Debug.Log("OnTouchRelease)... ");
+
         // was dragging ?
         if (_isDragging)
         {
@@ -158,20 +162,9 @@ public class BallHandler : MonoBehaviour
         // disable physics for the ball's RB
         SetKinematic(true);
 
-        // read touch position
-        Vector2 touchScreenPos = _touch.position.ReadValue();
+        Vector3 touchWorldPos = GetWorldTouchPosition();
 
-        if (touchScreenPos.x.Equals(float.PositiveInfinity) ||
-            touchScreenPos.y.Equals(float.PositiveInfinity))
-        {
-            //Debug.Log("false touch positive INFINITY");
-            return;
-        }
-
-        // convert screen -> world position
-        Vector3 touchWorldPos = _mainCamera.ScreenToWorldPoint(touchScreenPos);
-
-        //Debug.Log($"[BallHandler] touchWorldPos: {touchWorldPos}, touchScreenPos: {touchScreenPos}");
+        Debug.Log($"[BallHandler] DragBall) touchWorldPos: {touchWorldPos}");
 
         // update ball's rigid body position
         _currentBallRB.position = touchWorldPos;
@@ -202,8 +195,35 @@ public class BallHandler : MonoBehaviour
         _currentBallSpringJoint.enabled = enable;
     }
 
-    bool touchIsPressed()
+    bool TouchIsPressed()
     {
-        return _touch.press.isPressed;
+        return Touch.activeTouches.Count > 0;
     }
+
+    Vector3 GetWorldTouchPosition()
+    {
+        // read touch position
+        var touchScreenPos = new Vector2();
+
+        if (Touch.activeTouches.Count > 1)
+        {
+            Debug.Log($"Touch activeTouches now is {Touch.activeTouches}");
+        }
+
+        foreach (Touch touch in Touch.activeTouches)
+        {
+            touchScreenPos += touch.screenPosition;
+        }
+
+        touchScreenPos /= Touch.activeTouches.Count;
+
+        // convert screen -> world position
+        Vector3 touchWorldPos = _mainCamera.ScreenToWorldPoint(touchScreenPos);
+
+        //Debug.Log($"GetWorldTouchPosition) touchWorldPos:{touchWorldPos} /WORLD/");
+
+        return touchWorldPos;
+    }
+
+
 }
