@@ -8,16 +8,16 @@ namespace Ypx.Unity.Debug
     {
         [Header("Settings")]
         [SerializeField]
-        bool _enabled;
+        bool _showLogs;
 
         void Awake()
         {
-            YLogger.SetEnabled(_enabled);
+            YLogger.SetEnabled(_showLogs);
         }
 
         void Update()
         {
-            YLogger.SetEnabled(_enabled);
+            YLogger.SetEnabled(_showLogs);
         }
     }
 
