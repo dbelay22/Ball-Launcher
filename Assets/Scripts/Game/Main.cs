@@ -23,8 +23,7 @@ namespace BallLauncher.Core
             //appFacade = AppFacade.getInstance();
             //appFacade.startup(this);
 
-            // for now...
-            
+            // for now...            
             YLogger.Debug("I will load the next scene in the build settings...");
 
             SceneUtils.LoadNextScene();
