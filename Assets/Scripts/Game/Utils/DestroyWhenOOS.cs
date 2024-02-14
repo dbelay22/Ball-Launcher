@@ -1,4 +1,5 @@
 using UnityEngine;
+using Yxp.Debug;
 
 namespace BallLauncher.Utils
 {
@@ -25,8 +26,8 @@ namespace BallLauncher.Utils
             _screenMax = _camera.ViewportToWorldPoint(Vector2.one);
 
             /*
-            Debug.Log($"screenMin.x:{_screenMin.x}, screenMin.y={_screenMin.y}");
-            Debug.Log($"screenMax.x:{_screenMax.x}, screenMax.y={_screenMax.y}");
+            YLogger.Debug($"screenMin.x:{_screenMin.x}, screenMin.y={_screenMin.y}");
+            YLogger.Debug($"screenMax.x:{_screenMax.x}, screenMax.y={_screenMax.y}");
             */
         }
 
@@ -34,7 +35,7 @@ namespace BallLauncher.Utils
         {
             if (isTransformOOS())
             {
-                Debug.Log("Sprite is OOS !! destroying it now...");
+                YLogger.Debug("Sprite is OOS !! destroying it now...");
                 Destroy(gameObject);
             }
         }

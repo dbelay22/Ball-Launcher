@@ -4,25 +4,31 @@ namespace Yxp.Debug
 {
     public static class YLogger
     {
-        static bool _enabled = false;
+        static bool _enabled;
 
-        static ILogger _currentLogger = new UnityLogger();
+        static ILogger _currentLogger;
 
-        public static void Debug(object message, object sender)
+        static YLogger()
+        {
+            _currentLogger = new UnityLogger();
+            _enabled = true;
+        }
+
+        public static void Debug(object message, object sender = null)
         {
             if (!_enabled) return;
 
             _currentLogger.Debug(message, sender);
         }
 
-        public static void Warning(object message, object sender)
+        public static void Warning(object message, object sender = null)
         {
             if (!_enabled) return;
 
             _currentLogger.Warning(message, sender);
         }
 
-        public static void Error(object message, object sender)
+        public static void Error(object message, object sender = null)
         {
             if (!_enabled) return;
 

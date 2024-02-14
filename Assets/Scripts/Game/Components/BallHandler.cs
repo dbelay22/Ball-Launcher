@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
+using Yxp.Debug;
+
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace BallLauncher.Components
@@ -34,9 +36,7 @@ namespace BallLauncher.Components
             if (AnyError())
             {
                 return;
-            }
-
-            Application.targetFrameRate = 30;
+            }            
         }
 
         void CheckSerializedFields()
@@ -45,19 +45,19 @@ namespace BallLauncher.Components
 
             if (_clonesParent == null)
             {
-                Debug.LogError("BallHandler] _clonesParent is invalid");
+                YLogger.Error("BallHandler] _clonesParent is invalid");
                 _serializedFieldsError = true;
             }
 
             if (_ballPrefab == null)
             {
-                Debug.LogError("BallHandler] _ballPrefab is invalid");
+                YLogger.Error("BallHandler] _ballPrefab is invalid");
                 _serializedFieldsError = true;
             }
 
             if (_pivot == null)
             {
-                Debug.LogError("BallHandler] _pivot is invalid");
+                YLogger.Error("BallHandler] _pivot is invalid");
                 _serializedFieldsError = true;
             }
         }
@@ -66,7 +66,7 @@ namespace BallLauncher.Components
         {
             if (_serializedFieldsError == true)
             {
-                Debug.LogError($"Update) AnyError is TRUE");
+                YLogger.Error($"Update) AnyError is TRUE");
             }
 
             return _serializedFieldsError;
@@ -94,7 +94,7 @@ namespace BallLauncher.Components
 
             _mainCamera = Camera.main;
 
-            Debug.Log("Start) Spawnining ball...");
+            YLogger.Debug("Start) Spawnining ball...");
 
             SpawnBall();
         }
@@ -125,7 +125,7 @@ namespace BallLauncher.Components
 
         void OnTouchPressing()
         {
-            //Debug.Log("OnTouchPressing)...");
+            //YLogger.Debug("OnTouchPressing)...");
 
             if (_canDragBall)
             {
@@ -138,7 +138,7 @@ namespace BallLauncher.Components
 
         void OnTouchRelease()
         {
-            //Debug.Log("OnTouchRelease)... ");
+            //YLogger.Debug("OnTouchRelease)... ");
 
             // was dragging ?
             if (_isDragging)
@@ -153,7 +153,7 @@ namespace BallLauncher.Components
 
         void SpawnBall()
         {
-            Debug.Log("SpawnBall) ...");
+            YLogger.Debug("SpawnBall) ...");
 
             // new ball !!
             _ballInstance = Instantiate(_ballPrefab, _pivot.position, Quaternion.identity);
@@ -187,7 +187,7 @@ namespace BallLauncher.Components
 
             Vector3 touchWorldPos = GetWorldTouchPosition();
 
-            //Debug.Log($"[BallHandler] DragBall) touchWorldPos: {touchWorldPos}");
+            //YLogger.Debug($"[BallHandler] DragBall) touchWorldPos: {touchWorldPos}");
 
             // update ball's rigid body position
             _currentBallRB.position = touchWorldPos;
@@ -205,7 +205,7 @@ namespace BallLauncher.Components
         {
             EnableSpringJoint(false);
 
-            Debug.Log($"Will invoke SpawnBall in {_respawnDelay} seconds");
+            YLogger.Debug($"Will invoke SpawnBall in {_respawnDelay} seconds");
 
             Invoke(nameof(SpawnBall), _respawnDelay);
         }
@@ -232,7 +232,7 @@ namespace BallLauncher.Components
 
             if (Touch.activeTouches.Count > 1)
             {
-                Debug.Log($"Touch activeTouches now is {Touch.activeTouches.Count}");
+                YLogger.Debug($"Touch activeTouches now is {Touch.activeTouches.Count}");
             }
 
             foreach (Touch touch in Touch.activeTouches)
@@ -240,11 +240,11 @@ namespace BallLauncher.Components
                 touchScreenPos += touch.screenPosition;
             }
 
-            //Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /BEFORE/");
+            //YLogger.Debug($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /BEFORE/");
 
             touchScreenPos /= Touch.activeTouches.Count;
 
-            //Debug.Log($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /AFTER/");
+            //YLogger.Debug($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /AFTER/");
 
             if (touchScreenPos.x.Equals(float.PositiveInfinity) ||
                 touchScreenPos.y.Equals(float.PositiveInfinity))
@@ -255,7 +255,7 @@ namespace BallLauncher.Components
             // convert screen -> world position
             Vector3 touchWorldPos = _mainCamera.ScreenToWorldPoint(touchScreenPos);
 
-            //Debug.Log($"GetWorldTouchPosition) touchWorldPos:{touchWorldPos} /WORLD/");
+            //YLogger.Debug($"GetWorldTouchPosition) touchWorldPos:{touchWorldPos} /WORLD/");
 
             return touchWorldPos;
         }
