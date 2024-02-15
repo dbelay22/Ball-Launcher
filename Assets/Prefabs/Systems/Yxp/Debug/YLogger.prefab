@@ -59,5 +59,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showLogs: 1
   _logLevel: 0
+  _showTimestamp: 1
   _generateDebugLogs: 0
   _devSettings: {fileID: 11400000, guid: 378f72634d3988d409803bee979625e1, type: 2}

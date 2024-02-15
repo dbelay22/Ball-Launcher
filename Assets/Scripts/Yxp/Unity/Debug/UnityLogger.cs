@@ -4,39 +4,41 @@ namespace Yxp.Unity.Debug
 {
     public class UnityLogger : Yxp.Debug.ILogger
     {
-        public void Debug(object message, object sender)
+        public void Debug(object message, object sender, bool showTimestamp)
         {
-            UnityEngine.Debug.Log(message, sender as Object);
+            object decoratedMessage = DecorateMessage(message, showTimestamp);
+            
+            UnityEngine.Debug.Log(decoratedMessage, sender as Object);
         }
 
-        public void Warning(object message, object sender)
+        public void Warning(object message, object sender, bool showTimestamp)
         {
-            UnityEngine.Debug.LogWarning(message, sender as Object);
+            object decoratedMessage = DecorateMessage(message, showTimestamp);
+            
+            UnityEngine.Debug.LogWarning(decoratedMessage, sender as Object);
         }
 
-        public void Error(object message, object sender)
+        public void Error(object message, object sender, bool showTimestamp)
         {
-            UnityEngine.Debug.LogError(message, sender as Object);
+            object decoratedMessage = DecorateMessage(message, showTimestamp);
+
+            UnityEngine.Debug.LogError(decoratedMessage, sender as Object);
         }
 
-        public void DebugWithTimestamp(object message, object sender)
+        private object DecorateMessage(object message, bool showTimestamp)
         {
-            Debug(DecorateWithTimestamp(message), sender);
-        }
+            if (showTimestamp)
+            {
+                return DecorateWithTimestamp(message);
+            }
 
-        public void WarningWithTimestamp(object message, object sender)
-        {
-            Warning(DecorateWithTimestamp(message), sender);
+            return message;
         }
-
-        public void ErrorWithTimestamp(object message, object sender)
-        {
-            Error(DecorateWithTimestamp(message), sender);
-        }
-
+        
         private object DecorateWithTimestamp(object message)
         {
             return $"({Time.realtimeSinceStartup}) {message}";
         }
+
     }
 }

@@ -28,42 +28,21 @@ namespace Yxp.Debug
         {
             if (!canLog(YLogLevel.Debug)) return;
 
-            if (_decorateWithTimestamp)
-            {
-                _currentLogger.DebugWithTimestamp(message, sender);
-            }
-            else 
-            {
-                _currentLogger.Debug(message, sender);
-            }
+            _currentLogger.Debug(message, sender, _decorateWithTimestamp);
         }
 
         public static void Warning(object message, object sender = null)
         {
             if (!canLog(YLogLevel.Warning)) return;
 
-            if (_decorateWithTimestamp)
-            {
-                _currentLogger.WarningWithTimestamp(message, sender);
-            }
-            else
-            {
-                _currentLogger.Warning(message, sender);
-            }
+            _currentLogger.Warning(message, sender, _decorateWithTimestamp);
         }
 
         public static void Error(object message, object sender = null)
         {
             if (!canLog(YLogLevel.Error)) return;
 
-            if (_decorateWithTimestamp)
-            {
-                _currentLogger.ErrorWithTimestamp(message, sender);
-            }
-            else
-            {
-                _currentLogger.Error(message, sender);
-            }
+            _currentLogger.Error(message, sender, _decorateWithTimestamp);
         }
 
         public static void SetEnabled(bool enabled)
