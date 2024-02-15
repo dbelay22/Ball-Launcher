@@ -12,34 +12,33 @@ namespace Yxp.Debug
 
         static YLogger()
         {
-            _currentLogger = new UnityLogger();            
-            _enabled = true;            
+            _enabled = false;
             _logLevel = YLogLevel.Debug;
+        }
+
+        public static void UseLogger(ILogger logger)
+        {
+            _enabled = true;            
+            _currentLogger = logger;
         }
 
         public static void Debug(object message, object sender = null)
         {
-            if (!_enabled) return;
-
-            if (_logLevel > YLogLevel.Debug) return;
+            if (!canLog(YLogLevel.Debug)) return;
 
             _currentLogger.Debug(message, sender);
         }
 
         public static void Warning(object message, object sender = null)
         {
-            if (!_enabled) return;
-
-            if (_logLevel > YLogLevel.Warning) return;
+            if (!canLog(YLogLevel.Warning)) return;
 
             _currentLogger.Warning(message, sender);
         }
 
         public static void Error(object message, object sender = null)
         {
-            if (!_enabled) return;
-
-            if (_logLevel > YLogLevel.Error) return;
+            if (!canLog(YLogLevel.Error)) return;
 
             _currentLogger.Error(message, sender);
         }
@@ -53,6 +52,18 @@ namespace Yxp.Debug
         {
             _logLevel = logLevel;
         }
+
+        private static bool canLog(YLogLevel level)
+        {
+            if (!_enabled) return false;
+
+            if (_logLevel > level) return false;
+
+            if (_currentLogger == null) return false;
+
+            return true;
+        }
+
     }
 
     public enum YLogLevel

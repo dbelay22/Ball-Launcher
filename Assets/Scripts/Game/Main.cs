@@ -12,13 +12,16 @@ namespace BallLauncher.Core
 
         void Awake()
         {
+            YLogger.Debug($"* Setting frame rate to {TARGET_FRAMERATE}");
+
             Application.targetFrameRate = TARGET_FRAMERATE;
         }
 
         void Start()
         {
             // Game entry point
-            YLogger.Debug("Hello, I'm Unity's Main from BallLauncher.Core");
+
+            //YLogger.Debug("Hello, I'm Unity's Main from BallLauncher.Core");
 
             // then something like in PotatoXY...
             // start cooking pure
@@ -26,7 +29,6 @@ namespace BallLauncher.Core
             //appFacade.startup(this);
 
             // for now...            
-            YLogger.Debug("I will load the next scene in the build settings...");
 
             SceneUtils.LoadNextScene();
         }
