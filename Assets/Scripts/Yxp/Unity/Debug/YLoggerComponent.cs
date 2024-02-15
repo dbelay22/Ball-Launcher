@@ -7,17 +7,23 @@ namespace Ypx.Unity.Debug
     public class YLoggerComponent : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField]
-        bool _showLogs;
+        [SerializeField] bool _showLogs;
+        [SerializeField] YLogLevel _logLevel;
 
         void Awake()
         {
-            YLogger.SetEnabled(_showLogs);
+            ApplySettings();
         }
 
-        void Update()
+        void OnValidate()
+        {
+            ApplySettings();
+        }
+
+        void ApplySettings()
         {
             YLogger.SetEnabled(_showLogs);
+            YLogger.SetLogLevel(_logLevel);
         }
     }
 
