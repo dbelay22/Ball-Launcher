@@ -21,7 +21,7 @@ namespace BallLauncher.Core
         {
             // Game entry point
 
-            //YLogger.Debug("Hello, I'm Unity's Main from BallLauncher.Core");
+            YLogger.Debug("Hello, I'm Unity's Main from BallLauncher.Core");
 
             // then something like in PotatoXY...
             // start cooking pure

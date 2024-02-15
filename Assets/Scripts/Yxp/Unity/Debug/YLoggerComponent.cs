@@ -4,6 +4,13 @@ using Yxp.Unity.Debug;
 
 namespace Ypx.Unity.Debug
 {
+    /*
+    IMPORTANT:  When bootstraping a new project you need to change the script execution order of this component 
+                to run before the default time, -200 should work.
+                Refer to "Project Settings" / "Script Execution Order".
+                This allows you to have YLogger available in early Awake calls.
+     */
+
     [AddComponentMenu("Yxp/Debug/YLogger")]
     public class YLoggerComponent : MonoBehaviour
     {
