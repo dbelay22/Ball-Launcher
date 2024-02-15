@@ -10,6 +10,8 @@ namespace Yxp.Debug
 
         static YLogLevel _logLevel;
 
+        static bool _decorateWithTimestamp;
+
         static YLogger()
         {
             _enabled = false;
@@ -26,21 +28,42 @@ namespace Yxp.Debug
         {
             if (!canLog(YLogLevel.Debug)) return;
 
-            _currentLogger.Debug(message, sender);
+            if (_decorateWithTimestamp)
+            {
+                _currentLogger.DebugWithTimestamp(message, sender);
+            }
+            else 
+            {
+                _currentLogger.Debug(message, sender);
+            }
         }
 
         public static void Warning(object message, object sender = null)
         {
             if (!canLog(YLogLevel.Warning)) return;
 
-            _currentLogger.Warning(message, sender);
+            if (_decorateWithTimestamp)
+            {
+                _currentLogger.WarningWithTimestamp(message, sender);
+            }
+            else
+            {
+                _currentLogger.Warning(message, sender);
+            }
         }
 
         public static void Error(object message, object sender = null)
         {
             if (!canLog(YLogLevel.Error)) return;
 
-            _currentLogger.Error(message, sender);
+            if (_decorateWithTimestamp)
+            {
+                _currentLogger.ErrorWithTimestamp(message, sender);
+            }
+            else
+            {
+                _currentLogger.Error(message, sender);
+            }
         }
 
         public static void SetEnabled(bool enabled)
@@ -51,6 +74,11 @@ namespace Yxp.Debug
         public static void SetLogLevel(YLogLevel logLevel)
         {
             _logLevel = logLevel;
+        }
+
+        public static void SetDecorateWithTimestamp(bool enabled)
+        {
+            _decorateWithTimestamp = enabled;
         }
 
         private static bool canLog(YLogLevel level)

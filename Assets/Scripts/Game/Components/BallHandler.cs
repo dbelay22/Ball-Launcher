@@ -149,7 +149,7 @@ namespace BallLauncher.Components
 
         void SpawnBall()
         {
-            //YLogger.Debug("SpawnBall) ...");
+            YLogger.Debug("SpawnBall) ...");
 
             // new ball !!
             _ballInstance = Instantiate(_ballPrefab, _pivot.position, Quaternion.identity);

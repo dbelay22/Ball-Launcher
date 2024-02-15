@@ -18,5 +18,25 @@ namespace Yxp.Unity.Debug
         {
             UnityEngine.Debug.LogError(message, sender as Object);
         }
+
+        public void DebugWithTimestamp(object message, object sender)
+        {
+            Debug(DecorateWithTimestamp(message), sender);
+        }
+
+        public void WarningWithTimestamp(object message, object sender)
+        {
+            Warning(DecorateWithTimestamp(message), sender);
+        }
+
+        public void ErrorWithTimestamp(object message, object sender)
+        {
+            Error(DecorateWithTimestamp(message), sender);
+        }
+
+        private object DecorateWithTimestamp(object message)
+        {
+            return $"({Time.realtimeSinceStartup}) {message}";
+        }
     }
 }

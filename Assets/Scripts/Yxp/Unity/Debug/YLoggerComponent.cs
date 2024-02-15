@@ -17,13 +17,16 @@ namespace Ypx.Unity.Debug
         [Header("Settings")]
         [SerializeField] bool _showLogs;
         [SerializeField] YLogLevel _logLevel;
+        [SerializeField] bool _showTimestamp;
 
         [Header("Development")]
         [SerializeField] bool _generateDebugLogs;
-        [SerializeField] YLoggerComponentData _devSettings;
+        [SerializeField] YLoggerComponentSettings _devSettings;
 
         void Awake()
         {
+            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent Awake");
+
             if (_devSettings == null)
             {
                 UnityEngine.Debug.LogError("Missing YLogger development settings");
@@ -36,6 +39,7 @@ namespace Ypx.Unity.Debug
             _showLogs = _devSettings.showLogs;
             _logLevel = _devSettings.logLevel;
             _generateDebugLogs = _devSettings.generateDebugLogs;
+            _showTimestamp = _devSettings.decorateWithTimestamp;
 
             ApplySettings();
         }
@@ -44,6 +48,7 @@ namespace Ypx.Unity.Debug
         {
             YLogger.SetEnabled(_showLogs);
             YLogger.SetLogLevel(_logLevel);
+            YLogger.SetDecorateWithTimestamp(_showTimestamp);
         }
 
 #if UNITY_EDITOR

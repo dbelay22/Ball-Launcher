@@ -12,7 +12,7 @@ namespace BallLauncher.Core
 
         void Awake()
         {
-            YLogger.Debug($"* Setting frame rate to {TARGET_FRAMERATE}");
+            YLogger.Debug($"Main] * Setting frame rate to {TARGET_FRAMERATE}");
 
             Application.targetFrameRate = TARGET_FRAMERATE;
         }
