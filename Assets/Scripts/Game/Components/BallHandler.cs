@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.InputSystem.Utilities;
 using Yxp.Debug;
 
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -64,7 +65,7 @@ namespace BallLauncher.Components
 
         bool AnyError()
         {
-            if (_serializedFieldsError == true)
+            if (_serializedFieldsError)
             {
                 YLogger.Error($"Update) AnyError is TRUE");
             }
@@ -94,17 +95,12 @@ namespace BallLauncher.Components
 
             _mainCamera = Camera.main;
 
-            YLogger.Debug("Start) Spawnining ball...");
-
             SpawnBall();
         }
 
         void Update()
         {
-            if (AnyError() == true)
-            {
-                return;
-            }
+            if (AnyError()) return;
 
             ProcessInput();
         }
@@ -153,7 +149,7 @@ namespace BallLauncher.Components
 
         void SpawnBall()
         {
-            YLogger.Debug("SpawnBall) ...");
+            //YLogger.Debug("SpawnBall) ...");
 
             // new ball !!
             _ballInstance = Instantiate(_ballPrefab, _pivot.position, Quaternion.identity);
@@ -230,19 +226,23 @@ namespace BallLauncher.Components
             // read touch position
             var touchScreenPos = new Vector2();
 
-            if (Touch.activeTouches.Count > 1)
+            ReadOnlyArray<Touch> activeTouches = Touch.activeTouches;
+            
+            int activeTouchesCount = activeTouches.Count;
+
+            if (activeTouchesCount > 1)
             {
                 YLogger.Debug($"Touch activeTouches now is {Touch.activeTouches.Count}");
-            }
+            }           
 
-            foreach (Touch touch in Touch.activeTouches)
+            foreach (Touch touch in activeTouches)
             {
                 touchScreenPos += touch.screenPosition;
             }
 
             //YLogger.Debug($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /BEFORE/");
 
-            touchScreenPos /= Touch.activeTouches.Count;
+            touchScreenPos /= activeTouchesCount;
 
             //YLogger.Debug($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /AFTER/");
 
