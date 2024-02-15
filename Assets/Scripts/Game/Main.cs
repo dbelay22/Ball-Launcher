@@ -8,9 +8,11 @@ namespace BallLauncher.Core
 {
     public class Main : MonoBehaviour
     {
+        private const int TARGET_FRAMERATE = 30;
+
         void Awake()
         {
-            Application.targetFrameRate = 30;
+            Application.targetFrameRate = TARGET_FRAMERATE;
         }
 
         void Start()
