@@ -14,14 +14,14 @@ namespace Ypx.Unity.Debug
     [AddComponentMenu("Yxp/Debug/YLogger")]
     public class YLoggerComponent : MonoBehaviour
     {
-        [Header("Settings")]
+        [Header("Live Settings")]
         [SerializeField] bool _showLogs;
         [SerializeField] YLogLevel _logLevel;
         [SerializeField] bool _showTimestamp;
 
         [Header("Development")]
-        [SerializeField] bool _generateDebugLogs;
         [SerializeField] YLoggerComponentSettings _devSettings;
+        [SerializeField] bool _generateDebugLogs;        
 
         void Awake()
         {
