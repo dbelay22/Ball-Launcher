@@ -60,5 +60,5 @@ MonoBehaviour:
   _showLogs: 1
   _logLevel: 0
   _showTimestamp: 1
-  _devSettings: {fileID: 11400000, guid: 378f72634d3988d409803bee979625e1, type: 2}
+  _devSettings: {fileID: 11400000, guid: 0a60f2e6bd1cb0d4d8471641051335c4, type: 2}
   _generateDebugLogs: 0

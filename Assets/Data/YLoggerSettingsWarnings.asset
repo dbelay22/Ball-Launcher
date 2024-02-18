@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showLogs: 1
   logLevel: 10
-  decorateWithTimestamp: 1
+  decorateWithTimestamp: 0
   generateDebugLogs: 0
   debugLogMessage: 
   warningLogMessage: 

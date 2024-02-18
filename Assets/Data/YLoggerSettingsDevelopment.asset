@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showLogs: 1
   logLevel: 0
-  decorateWithTimestamp: 1
+  decorateWithTimestamp: 0
   generateDebugLogs: 0
   debugLogMessage: '"YLogger - Debug level example log"'
   warningLogMessage: '"YLogger - Warning level example log"'
