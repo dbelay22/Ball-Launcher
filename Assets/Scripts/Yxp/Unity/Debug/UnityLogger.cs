@@ -1,4 +1,5 @@
 using UnityEngine;
+using Yxp.Debug;
 
 namespace Yxp.Unity.Debug
 {
@@ -6,23 +7,38 @@ namespace Yxp.Unity.Debug
     {
         public void Debug(object message, object sender, bool showTimestamp)
         {
-            object decoratedMessage = DecorateMessage(message, showTimestamp);
-            
-            UnityEngine.Debug.Log(decoratedMessage, sender as Object);
+            LogMessage(YLogLevel.Debug, message, sender, showTimestamp);
         }
 
         public void Warning(object message, object sender, bool showTimestamp)
-        {
-            object decoratedMessage = DecorateMessage(message, showTimestamp);
-            
-            UnityEngine.Debug.LogWarning(decoratedMessage, sender as Object);
+        {            
+            LogMessage(YLogLevel.Warning, message, sender, showTimestamp);
         }
 
         public void Error(object message, object sender, bool showTimestamp)
         {
+            LogMessage(YLogLevel.Error, message, sender, showTimestamp);
+        }
+
+        private void LogMessage(YLogLevel level, object message, object sender, bool showTimestamp)
+        {
             object decoratedMessage = DecorateMessage(message, showTimestamp);
 
-            UnityEngine.Debug.LogError(decoratedMessage, sender as Object);
+            switch (level)
+            {
+                case YLogLevel.Debug:
+                    UnityEngine.Debug.Log(decoratedMessage, sender as Object);
+                    break;
+
+                case YLogLevel.Warning:
+                    UnityEngine.Debug.LogWarning(decoratedMessage, sender as Object);
+                    break;
+
+                case YLogLevel.Error:
+                    UnityEngine.Debug.LogError(decoratedMessage, sender as Object);
+                    break;
+
+            }
         }
 
         private object DecorateMessage(object message, bool showTimestamp)

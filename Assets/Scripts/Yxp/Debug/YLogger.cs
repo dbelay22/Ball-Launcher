@@ -1,5 +1,3 @@
-using Yxp.Unity.Debug;
-
 namespace Yxp.Debug
 {
     public enum YLogLevel
