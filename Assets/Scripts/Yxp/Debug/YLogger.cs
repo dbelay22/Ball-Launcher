@@ -2,6 +2,13 @@ using Yxp.Unity.Debug;
 
 namespace Yxp.Debug
 {
+    public enum YLogLevel
+    {
+        Debug = 0,
+        Warning = 10,
+        Error = 20
+    }
+
     public static class YLogger
     {
         static bool _enabled;
@@ -71,13 +78,6 @@ namespace Yxp.Debug
             return true;
         }
 
-    }
-
-    public enum YLogLevel
-    { 
-        Debug = 0,
-        Warning = 10,
-        Error = 20
     }
 
 }
