@@ -61,7 +61,6 @@ namespace Ypx.Unity.Debug
 
         void InitializeDevSettings()
         {
-
             if (_devSettings == null)
             {
                 UnityEngine.Debug.LogWarning($"Missing YLogger development settings, using production.");
