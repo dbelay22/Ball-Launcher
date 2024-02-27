@@ -27,14 +27,35 @@ namespace Ypx.Unity.Debug
 
         private YLoggerComponentSettings _currentSettings;
 
+        UnityLogger _unityLogger;
+
         void Awake()
         {
-            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent Awake");
+            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent Awake) - Am I enabled ? {this.enabled}");
+        }
+
+        void OnEnable()
+        {
+            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent OnEnable)");
 
             InitializeSettings();
 
-            YLogger.UseLogger(new UnityLogger());
+            if (_unityLogger == null)
+            {
+                _unityLogger = new UnityLogger();
+                
+            }
+            YLogger.UseLogger(_unityLogger);
 
+            ApplyLiveSettings();
+        }
+
+        void OnDisable()
+        {
+            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent OnDisable)");
+
+            _showLogs = false;
+            
             ApplyLiveSettings();
         }
 

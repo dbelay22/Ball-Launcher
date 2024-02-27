@@ -6,13 +6,13 @@ using Yxp.Unity.Utils;
 
 namespace BallLauncher.Core
 {
-    public class Main : MonoBehaviour
+    public class App : MonoBehaviour
     {
         private const int TARGET_FRAMERATE = 30;
 
         void Awake()
         {
-            YLogger.Debug($"Main] * Setting frame rate to {TARGET_FRAMERATE}");
+            YLogger.Debug($"App] * Setting frame rate to {TARGET_FRAMERATE}");
 
             Application.targetFrameRate = TARGET_FRAMERATE;
         }
@@ -21,7 +21,7 @@ namespace BallLauncher.Core
         {
             // Game entry point
 
-            YLogger.Debug("Hello, I'm Unity's Main from BallLauncher.Core");
+            YLogger.Debug("Hello, I'm the main App from BallLauncher.Core");
 
             // then something like in PotatoXY...
             // start cooking pure

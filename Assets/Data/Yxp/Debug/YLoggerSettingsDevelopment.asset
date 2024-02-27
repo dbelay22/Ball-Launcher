@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: YLoggerSettingsDevelopment
   m_EditorClassIdentifier: 
   showLogs: 1
-  logLevel: 10
+  logLevel: 0
   decorateWithTimestamp: 1
   generateDebugLogs: 0
   debugLogMessage: '"YLogger - Debug level example log"'
