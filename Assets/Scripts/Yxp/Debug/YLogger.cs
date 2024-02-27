@@ -2,7 +2,8 @@ namespace Yxp.Debug
 {
     public enum YLogLevel
     {
-        Debug = 0,
+        Verbose = 0,
+        Debug = 1,
         Warning = 10,
         Error = 20
     }
@@ -27,6 +28,13 @@ namespace Yxp.Debug
         {
             _enabled = true;            
             _currentLogger = logger;
+        }
+
+        public static void Verbose(object message, object sender = null)
+        {
+            if (!canLog(YLogLevel.Verbose)) return;
+
+            _currentLogger.Verbose(message, sender, _decorateWithTimestamp);
         }
 
         public static void Debug(object message, object sender = null)

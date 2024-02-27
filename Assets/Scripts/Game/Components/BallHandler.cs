@@ -232,25 +232,40 @@ namespace BallLauncher.Components
 
             if (activeTouchesCount > 1)
             {
-                YLogger.Debug($"Touch activeTouches now is {Touch.activeTouches.Count}");
-            }           
+                YLogger.Verbose($"Touch activeTouches now is {Touch.activeTouches.Count}");
+            }
+
+            int validTouches = 0;
 
             foreach (Touch touch in activeTouches)
-            {
-                touchScreenPos += touch.screenPosition;
+            {                
+                //YLogger.Debug($"GetWorldTouchPosition) Touch[{touch.touchId}, valid:{touch.valid}] screenPosition:{touch.screenPosition} /touch instance/");
+
+                bool isTouchValid = !touch.screenPosition.x.Equals(float.PositiveInfinity) &&
+                                    !touch.screenPosition.y.Equals(float.PositiveInfinity);
+
+                if (isTouchValid)
+                {
+                    touchScreenPos += touch.screenPosition;
+
+                    validTouches++;
+                }                
             }
 
-            //YLogger.Debug($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /BEFORE/");
-
-            touchScreenPos /= activeTouchesCount;
-
-            //YLogger.Debug($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos} /AFTER/");
-
-            if (touchScreenPos.x.Equals(float.PositiveInfinity) ||
-                touchScreenPos.y.Equals(float.PositiveInfinity))
+            if (validTouches < 1)
             {
+#if UNITY_EDITOR
+                YLogger.Verbose("GetWorldTouchPosition) No valid touches!");
+#else
+                YLogger.Warning("GetWorldTouchPosition) No valid touches!");
+#endif
+
                 return Vector3.one;
             }
+
+            touchScreenPos /= validTouches;
+
+            //YLogger.Debug($"GetWorldTouchPosition) touchScreenPos:{touchScreenPos}");
 
             // convert screen -> world position
             Vector3 touchWorldPos = _mainCamera.ScreenToWorldPoint(touchScreenPos);

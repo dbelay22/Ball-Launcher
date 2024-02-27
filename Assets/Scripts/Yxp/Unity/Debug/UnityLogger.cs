@@ -5,6 +5,10 @@ namespace Yxp.Unity.Debug
 {
     public class UnityLogger : Yxp.Debug.ILogger
     {
+        public void Verbose(object message, object sender, bool showTimestamp)
+        {
+            LogMessage(YLogLevel.Verbose, message, sender, showTimestamp);
+        }
         public void Debug(object message, object sender, bool showTimestamp)
         {
             LogMessage(YLogLevel.Debug, message, sender, showTimestamp);
@@ -27,6 +31,7 @@ namespace Yxp.Unity.Debug
             switch (level)
             {
                 case YLogLevel.Debug:
+                case YLogLevel.Verbose:
                     UnityEngine.Debug.Log(decoratedMessage, sender as Object);
                     break;
 
@@ -54,7 +59,6 @@ namespace Yxp.Unity.Debug
         private object DecorateWithTimestamp(object message)
         {
             return $"({Time.realtimeSinceStartup}) {message}";
-        }
-
+        }     
     }
 }

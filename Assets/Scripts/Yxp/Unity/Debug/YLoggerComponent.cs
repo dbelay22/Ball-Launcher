@@ -9,7 +9,7 @@ namespace Ypx.Unity.Debug
     IMPORTANT:  When bootstraping a new project you need to change the script execution order of this component
                 to run before the default time, -200 should work.
                 Refer to "Project Settings" / "Script Execution Order".
-                This allows you to have YLogger available in early Awake calls.
+                This allows you to have YLogger available in early Awake/OnEnable calls.
      */
 
     [AddComponentMenu("Yxp/Debug/YLogger")]
@@ -21,7 +21,6 @@ namespace Ypx.Unity.Debug
         [SerializeField] bool _showTimestamp;
 
         [Header("Development Settings")]
-        [SerializeField] YLoggerComponentSettings _devSettings;
         [SerializeField] YLoggerComponentSettings _prodSettings;
         [SerializeField] bool _generateDebugLogs;
 
@@ -29,22 +28,19 @@ namespace Ypx.Unity.Debug
 
         UnityLogger _unityLogger;
 
-        void Awake()
-        {
-            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent Awake) - Am I enabled ? {this.enabled}");
-        }
-
         void OnEnable()
         {
-            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent OnEnable)");
+            //UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent OnEnable)");
 
-            InitializeSettings();
+            InitializeCurrentSettings();
 
             if (_unityLogger == null)
             {
-                _unityLogger = new UnityLogger();
-                
+                //UnityEngine.Debug.Log("Creating UnityLogger instance /+++++++");
+
+                _unityLogger = new UnityLogger();                
             }
+
             YLogger.UseLogger(_unityLogger);
 
             ApplyLiveSettings();
@@ -52,65 +48,51 @@ namespace Ypx.Unity.Debug
 
         void OnDisable()
         {
-            UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent OnDisable)");
+            //UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent OnDisable)");
 
             _showLogs = false;
             
-            ApplyLiveSettings();
+            YLogger.SetEnabled(_showLogs);
         }
 
-        void InitializeSettings()
+        void InitializeCurrentSettings()
         {
 #if UNITY_EDITOR
             InitializeDevSettings();
 #else
             InitializeProdSettings();
 #endif
+        }
 
-            if (_currentSettings == null)
+        void InitializeDevSettings()
+        {
+            // just use serialized settings of this component
+            _currentSettings = null;            
+        }
+
+        void InitializeProdSettings()
+        {
+            if (_prodSettings != null)
             {
-                UnityEngine.Debug.LogError("Somethig is really wrong, missing settings for YLogger.");
-                return;
+                _currentSettings = _prodSettings;
+            }
+            else
+            {
+                UnityEngine.Debug.LogError($"Missing YLogger production settings. Using fallback.");
+                
+                _currentSettings = GetFallbackSettings();
             }
 
-            // set live settings
+            // Override serialized editor values in production, use "scriptable object" settings.
             _showLogs = _currentSettings.showLogs;
             _logLevel = _currentSettings.logLevel;
             _generateDebugLogs = _currentSettings.generateDebugLogs;
             _showTimestamp = _currentSettings.decorateWithTimestamp;
         }
 
-        void InitializeDevSettings()
+        YLoggerComponentSettings GetFallbackSettings()
         {
-            if (_devSettings == null)
-            {
-                UnityEngine.Debug.LogWarning($"Missing YLogger development settings, using production.");
-
-                InitializeProdSettings();
-
-                return;
-            }
-
-            _currentSettings = _devSettings;
-        }
-
-        void InitializeProdSettings()
-        {
-            if (_prodSettings == null)
-            {
-                UnityEngine.Debug.LogError($"Missing YLogger production settings. Using fallback.");
-
-                UseFallbackSettings();
-
-                return;
-            }
-
-            _currentSettings = _prodSettings;
-        }
-
-        void UseFallbackSettings()
-        {
-            _currentSettings = new YLoggerComponentSettings
+           return new YLoggerComponentSettings
             {
                 showLogs = false,
                 generateDebugLogs = false,
@@ -142,11 +124,11 @@ namespace Ypx.Unity.Debug
 #if UNITY_EDITOR
         void ProcessDebugLogs()
         {
-            if (_generateDebugLogs)
+            if (_generateDebugLogs == true && _currentSettings != null)
             {
-                YLogger.Debug(_devSettings.debugLogMessage);
-                YLogger.Warning(_devSettings.warningLogMessage);
-                YLogger.Error(_devSettings.errorLogMessage);
+                YLogger.Debug(_currentSettings.debugLogMessage);
+                YLogger.Warning(_currentSettings.warningLogMessage);
+                YLogger.Error(_currentSettings.errorLogMessage);
             }
         }
 #endif

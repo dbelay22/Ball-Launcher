@@ -57,9 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ed922f2a56b2145a395cc9feb95d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showLogs: 0
-  _logLevel: 0
+  _showLogs: 1
+  _logLevel: 10
   _showTimestamp: 0
-  _devSettings: {fileID: 11400000, guid: 378f72634d3988d409803bee979625e1, type: 2}
   _prodSettings: {fileID: 11400000, guid: 0a60f2e6bd1cb0d4d8471641051335c4, type: 2}
   _generateDebugLogs: 0
