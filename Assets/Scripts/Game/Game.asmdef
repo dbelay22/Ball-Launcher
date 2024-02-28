@@ -1,0 +1,17 @@
+{
+    "name": "Game",
+    "rootNamespace": "BallLauncher",
+    "references": [
+        "GUID:8a9f4cfcd5c9bea4aae247285a7f1ed8",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
