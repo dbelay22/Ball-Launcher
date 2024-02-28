@@ -8,17 +8,17 @@ namespace Yxp.Unity.Debug
     [CreateAssetMenu(fileName = "YLoggerComponentSettings", menuName = "Yxp/YLogger Settings", order = 1)]
     public class YLoggerComponentSettings : ScriptableObject
     {
-        public bool showLogs;
+        public bool ShowLogs;
         
-        public YLogLevel logLevel;
+        public YLogLevel LogLevel;
 
-        public bool decorateWithTimestamp;
+        public bool DecorateWithTimestamp;
 
-        public bool generateDebugLogs;
+        public bool GenerateDebugLogs;
 
-        public string debugLogMessage;
-        public string warningLogMessage;
-        public string errorLogMessage;
+        public string DebugLogMessage;
+        public string WarningLogMessage;
+        public string ErrorLogMessage;
     }
 
 }

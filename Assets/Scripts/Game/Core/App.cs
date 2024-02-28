@@ -8,13 +8,25 @@ namespace BallLauncher.Core
 {
     public class App : MonoBehaviour
     {
-        private const int TARGET_FRAMERATE = 30;
+        [SerializeField]
+        private AppSettings _settings;
+        public AppSettings Settings { get { return _settings; } }
 
         void Awake()
         {
-            YLogger.Debug($"App] * Setting frame rate to {TARGET_FRAMERATE}");
+            ApplySettings();
+        }
 
-            Application.targetFrameRate = TARGET_FRAMERATE;
+        void ApplySettings()
+        {
+            if (_settings == null)
+            {
+                YLogger.Error("App] Settings are missing!");
+                return;
+            }
+
+            YLogger.Debug($"App] * Setting frame rate to {_settings.TargetFramerate}");
+            Application.targetFrameRate = _settings.TargetFramerate;
         }
 
         void Start()
@@ -30,7 +42,7 @@ namespace BallLauncher.Core
 
             // for now...            
 
-            SceneUtils.LoadNextScene();
+            //SceneUtils.LoadNextScene();
         }
     }
 

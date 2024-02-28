@@ -10,23 +10,22 @@ namespace Yxp.Debug
 
     public static class YLogger
     {
-        static bool _enabled;
+        public static bool Enabled { get; set; }               
+        public static YLogLevel LogLevel { get; set; }
+        
+        private static ILogger _currentLogger;
 
-        static ILogger _currentLogger;
-
-        static YLogLevel _logLevel;
-
-        static bool _decorateWithTimestamp;
+        private static bool _decorateWithTimestamp;
 
         static YLogger()
         {
-            _enabled = false;
-            _logLevel = YLogLevel.Debug;
+            Enabled = false;
+            LogLevel = YLogLevel.Warning;
         }
 
         public static void UseLogger(ILogger logger)
         {
-            _enabled = true;            
+            Enabled = true;            
             _currentLogger = logger;
         }
 
@@ -58,16 +57,6 @@ namespace Yxp.Debug
             _currentLogger.Error(message, sender, _decorateWithTimestamp);
         }
 
-        public static void SetEnabled(bool enabled)
-        {
-            _enabled = enabled;
-        }
-
-        public static void SetLogLevel(YLogLevel logLevel)
-        {
-            _logLevel = logLevel;
-        }
-
         public static void SetDecorateWithTimestamp(bool enabled)
         {
             _decorateWithTimestamp = enabled;
@@ -75,9 +64,9 @@ namespace Yxp.Debug
 
         private static bool canLog(YLogLevel level)
         {
-            if (!_enabled) return false;
+            if (!Enabled) return false;
 
-            if (_logLevel > level) return false;
+            if (LogLevel > level) return false;
 
             if (_currentLogger == null) return false;
 

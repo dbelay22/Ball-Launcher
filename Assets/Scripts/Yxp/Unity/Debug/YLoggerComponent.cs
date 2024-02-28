@@ -52,7 +52,7 @@ namespace Ypx.Unity.Debug
 
             _showLogs = false;
             
-            YLogger.SetEnabled(_showLogs);
+            YLogger.Enabled = _showLogs;
         }
 
         void InitializeCurrentSettings()
@@ -84,26 +84,26 @@ namespace Ypx.Unity.Debug
             }
 
             // Override serialized editor values in production, use "scriptable object" settings.
-            _showLogs = _currentSettings.showLogs;
-            _logLevel = _currentSettings.logLevel;
-            _generateDebugLogs = _currentSettings.generateDebugLogs;
-            _showTimestamp = _currentSettings.decorateWithTimestamp;
+            _showLogs = _currentSettings.ShowLogs;
+            _logLevel = _currentSettings.LogLevel;
+            _generateDebugLogs = _currentSettings.GenerateDebugLogs;
+            _showTimestamp = _currentSettings.DecorateWithTimestamp;
         }
 
         YLoggerComponentSettings GetFallbackSettings()
         {
            return new YLoggerComponentSettings
             {
-                showLogs = false,
-                generateDebugLogs = false,
-                decorateWithTimestamp = false
+                ShowLogs = false,
+                GenerateDebugLogs = false,
+                DecorateWithTimestamp = false
             };
         }
 
         void ApplyLiveSettings()
         {
-            YLogger.SetEnabled(_showLogs);
-            YLogger.SetLogLevel(_logLevel);
+            YLogger.Enabled = _showLogs;
+            YLogger.LogLevel = _logLevel;
             YLogger.SetDecorateWithTimestamp(_showTimestamp);
         }
 
@@ -126,9 +126,9 @@ namespace Ypx.Unity.Debug
         {
             if (_generateDebugLogs == true && _currentSettings != null)
             {
-                YLogger.Debug(_currentSettings.debugLogMessage);
-                YLogger.Warning(_currentSettings.warningLogMessage);
-                YLogger.Error(_currentSettings.errorLogMessage);
+                YLogger.Debug(_currentSettings.DebugLogMessage);
+                YLogger.Warning(_currentSettings.WarningLogMessage);
+                YLogger.Error(_currentSettings.ErrorLogMessage);
             }
         }
 #endif
