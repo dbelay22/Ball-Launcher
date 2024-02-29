@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BallLauncher.Core
 {
@@ -8,5 +9,7 @@ namespace BallLauncher.Core
     public class AppSettings : ScriptableObject
     {
         public int TargetFramerate;
+
+        public Object GameplayScene;
     }
 }

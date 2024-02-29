@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6636061311763013619}
   - component: {fileID: 6636061311763013616}
   - component: {fileID: 6636061311763013617}
+  - component: {fileID: 1990244481606196717}
   m_Layer: 6
   m_Name: Yxp
   m_TagString: Systems
@@ -62,3 +63,15 @@ MonoBehaviour:
   _showTimestamp: 0
   _prodSettings: {fileID: 11400000, guid: 0a60f2e6bd1cb0d4d8471641051335c4, type: 2}
   _generateDebugLogs: 0
+--- !u!114 &1990244481606196717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636061311763013582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2992203514123564d8449430a41a7b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

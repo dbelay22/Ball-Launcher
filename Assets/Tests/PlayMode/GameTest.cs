@@ -5,7 +5,7 @@ using UnityEngine.TestTools;
 using UnityEditor.SceneManagement;
 using Ypx.Unity.Debug;
 using App = BallLauncher.Core.App;
-
+using Yxp.Unity.Command;
 
 public class GameTest
 {
@@ -47,11 +47,30 @@ public class GameTest
     [UnityTest, Order(4)]
     public IEnumerator YLoggerComponentInstance()
     {
-        YLoggerComponent loggerComponent = Object.FindFirstObjectByType<YLoggerComponent>();
+        YLoggerComponent[] loggerComponents = FastFindObjectsOfType<YLoggerComponent>();
 
-        Assert.NotNull(loggerComponent);
+        Assert.AreEqual(1, loggerComponents.Length);
+
+        Assert.NotNull(loggerComponents[0]);
 
         yield return null;
+    }
+
+    [UnityTest, Order(5)]
+    public IEnumerator CommandInvokerInstance()
+    {
+        CommandInvoker[] commandInvokers = FastFindObjectsOfType<CommandInvoker>();
+
+        Assert.AreEqual(1, commandInvokers.Length);
+
+        Assert.NotNull(commandInvokers[0]);
+
+        yield return null;
+    }
+
+    private T[] FastFindObjectsOfType<T>() where T : Object
+    { 
+        return Object.FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
     }
 
 }

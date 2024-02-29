@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: AppSettings
   m_EditorClassIdentifier: 
   TargetFramerate: 30
+  GameplayScene: {fileID: 102900000, guid: a3b63b5e77e9512459cf98c7d101fe22, type: 3}
