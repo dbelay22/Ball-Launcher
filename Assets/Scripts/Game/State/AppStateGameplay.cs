@@ -33,15 +33,9 @@ namespace BallLauncher.State
         
         public AppStateMachine.States GetNextState()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKey(KeyCode.Escape))
             {
-                YLogger.Verbose("escape key down");
-                
                 return AppStateMachine.States.ExitToOS;
-            }
-            else
-            {
-                YLogger.Verbose("escape key NOT down");
             }
 
             return StateId;
