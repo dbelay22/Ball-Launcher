@@ -1,7 +1,4 @@
 using BallLauncher.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Yxp.Debug;
 using Yxp.State;
 
@@ -13,7 +10,7 @@ namespace BallLauncher.State
         {
             Start,
             Gameplay,
-            Exit
+            ExitToOS
         }
 
         private App _app;
@@ -27,6 +24,7 @@ namespace BallLauncher.State
         {
             _states[States.Start] = new AppStateStart(_app);
             _states[States.Gameplay] = new AppStateGameplay(_app);
+            _states[States.ExitToOS] = new AppStateExitToOS(_app);
 
             return States.Start;
         }

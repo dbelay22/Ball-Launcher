@@ -1,4 +1,5 @@
 using BallLauncher.Core;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yxp.Debug;
 using Yxp.State;
@@ -26,13 +27,24 @@ namespace BallLauncher.State
             SceneManager.LoadScene(gameplaySceneName);
         }
 
-        public AppStateMachine.States GetNextState()
-        {
-            return StateId;
-        }
-
         public void Update()
         {
+        }
+        
+        public AppStateMachine.States GetNextState()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                YLogger.Verbose("escape key down");
+                
+                return AppStateMachine.States.ExitToOS;
+            }
+            else
+            {
+                YLogger.Verbose("escape key NOT down");
+            }
+
+            return StateId;
         }
 
         public void Exit()
