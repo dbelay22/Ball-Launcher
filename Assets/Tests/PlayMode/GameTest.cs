@@ -3,8 +3,9 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEditor.SceneManagement;
-
+using Ypx.Unity.Debug;
 using App = BallLauncher.Core.App;
+
 
 public class GameTest
 {
@@ -13,9 +14,6 @@ public class GameTest
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        Debug.Log("*** OneTimeSetup");
-
-        //yield return new EnterPlayMode();
         // Load Main scene
         EditorSceneManager.LoadScene(0);
     }
@@ -23,8 +21,6 @@ public class GameTest
     [UnityTest, Order(1)]
     public IEnumerator AppInstance()
     {
-        Debug.Log("*** AppInstance");
-
         _app = Object.FindFirstObjectByType<App>();
 
         Assert.NotNull(_app);
@@ -35,8 +31,6 @@ public class GameTest
     [UnityTest, Order(2)]
     public IEnumerator AppSettings()
     {
-        Debug.Log("*** AppSettings");
-
         Assert.NotNull(_app.Settings);
 
         yield return null;
@@ -45,9 +39,17 @@ public class GameTest
     [UnityTest, Order(3)]
     public IEnumerator AppFramerateMobile()
     {
-        Debug.Log("*** AppFramerateMobile");
-
         Assert.AreEqual(30, Application.targetFrameRate);
+
+        yield return null;
+    }
+
+    [UnityTest, Order(4)]
+    public IEnumerator YLoggerComponentInstance()
+    {
+        YLoggerComponent loggerComponent = Object.FindFirstObjectByType<YLoggerComponent>();
+
+        Assert.NotNull(loggerComponent);
 
         yield return null;
     }
