@@ -4,9 +4,9 @@ using BallLauncher.Core;
 using Yxp.Debug;
 using Yxp.Unity.Command;
 
-namespace BallLauncher
+namespace BallLauncher.Commands
 {
-    public class ApplyAppSettingsCommand : YCommand
+    public class ApplyAppSettingsCommand : BaseCommand
     {
         int _previousFramerate = 0;
 
@@ -41,16 +41,8 @@ namespace BallLauncher
 
         public override void Undo()
         {
-            YLogger.Debug($"ApplyAppSettingsCommand] * Undoing, reverting to previous framerate: {_previousFramerate}");
-            _finishedExecuting = false;
-
-            if (_previousFramerate == 0)
-            {
-                return;
-            }
-
-            Application.targetFrameRate = _previousFramerate;
-
+            YLogger.Warning($"Trying to undo application settings ¿?");
+            
             _finishedExecuting = true;
         }
     }

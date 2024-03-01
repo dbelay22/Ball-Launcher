@@ -3,13 +3,13 @@ using Yxp.Debug;
 
 namespace Yxp.Command
 {
-    public abstract class YCommand : ICommand
+    public abstract class BaseCommand : ICommand
     {
         protected bool _finishedExecuting = false;
 
         public bool FinishedExecuting { get { return _finishedExecuting; } }
 
-        protected YCommand()
+        protected BaseCommand()
         {
             _finishedExecuting = false;
         }

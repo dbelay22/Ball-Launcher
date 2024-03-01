@@ -3,7 +3,7 @@ using BallLauncher.State;
 using UnityEngine;
 using Yxp.State;
 
-namespace BallLauncher
+namespace BallLauncher.State
 {
     public class AppStateExitToOS : IState<AppStateMachine.States>
     {
