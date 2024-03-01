@@ -6,6 +6,7 @@ using UnityEditor.SceneManagement;
 using Ypx.Unity.Debug;
 using App = BallLauncher.Core.App;
 using Yxp.Unity.Command;
+using Yxp.Unity.Utils;
 
 public class AppStartTest
 {
@@ -21,9 +22,13 @@ public class AppStartTest
     [UnityTest, Order(1)]
     public IEnumerator AppInstance()
     {
-        _app = Object.FindFirstObjectByType<App>();
+        App[] apps = ObjectUtils.FastFindObjectsOfType<App>();
 
-        Assert.NotNull(_app);
+        Assert.AreEqual(1, apps.Length);
+
+        Assert.NotNull(apps[0]);
+
+        _app = apps[0];
 
         yield return null;
     }
@@ -37,17 +42,9 @@ public class AppStartTest
     }
 
     [UnityTest, Order(3)]
-    public IEnumerator AppFramerateMobile()
-    {
-        Assert.AreEqual(30, Application.targetFrameRate);
-
-        yield return null;
-    }
-
-    [UnityTest, Order(4)]
     public IEnumerator YLoggerComponentInstance()
     {
-        YLoggerComponent[] loggerComponents = FastFindObjectsOfType<YLoggerComponent>();
+        YLoggerComponent[] loggerComponents = ObjectUtils.FastFindObjectsOfType<YLoggerComponent>();
 
         Assert.AreEqual(1, loggerComponents.Length);
 
@@ -56,21 +53,24 @@ public class AppStartTest
         yield return null;
     }
 
-    [UnityTest, Order(5)]
+    [UnityTest, Order(4)]
     public IEnumerator CommandInvokerInstance()
     {
-        CommandInvoker[] commandInvokers = FastFindObjectsOfType<CommandInvoker>();
+        CommandInvoker[] commandInvokers = ObjectUtils.FastFindObjectsOfType<CommandInvoker>();
 
         Assert.AreEqual(1, commandInvokers.Length);
 
         Assert.NotNull(commandInvokers[0]);
 
         yield return null;
-    }    
+    }
 
-    private T[] FastFindObjectsOfType<T>() where T : Object
-    { 
-        return Object.FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+    [UnityTest, Order(5)]
+    public IEnumerator AppFramerateMobile()
+    {
+        Assert.AreEqual(30, Application.targetFrameRate);
+
+        yield return null;
     }
 
 }
