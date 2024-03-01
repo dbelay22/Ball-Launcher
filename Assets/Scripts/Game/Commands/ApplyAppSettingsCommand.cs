@@ -41,8 +41,8 @@ namespace BallLauncher.Commands
 
         public override void Undo()
         {
-            YLogger.Warning($"Trying to undo application settings ¿?");
-            
+            YLogger.Warning("Why do you want to undo application settings for ?");
+
             _finishedExecuting = true;
         }
     }

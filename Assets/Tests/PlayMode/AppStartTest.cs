@@ -7,7 +7,7 @@ using Ypx.Unity.Debug;
 using App = BallLauncher.Core.App;
 using Yxp.Unity.Command;
 
-public class GameTest
+public class AppStartTest
 {
     private App _app;
 
@@ -66,7 +66,7 @@ public class GameTest
         Assert.NotNull(commandInvokers[0]);
 
         yield return null;
-    }
+    }    
 
     private T[] FastFindObjectsOfType<T>() where T : Object
     { 

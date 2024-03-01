@@ -9,8 +9,7 @@ namespace Yxp.Unity.Command
 {
     public class CommandInvoker : MonoBehaviour
     {
-        private static CommandInvoker _instance;
-        public static CommandInvoker Instance { get { return _instance; } }
+        public static CommandInvoker Instance { get; private set; }
 
         private Stack<ICommand> _undoStack;
 
@@ -18,9 +17,9 @@ namespace Yxp.Unity.Command
 
         private CommandInvoker() { }
 
-        void Awake()
+        private void Awake()
         {
-            _instance = this;
+            Instance = this;
 
             _executionQueue = new Queue<ICommand>();
 
@@ -30,7 +29,9 @@ namespace Yxp.Unity.Command
         public void ExecuteCommand(ICommand command)
         {
             // enque command and return control
-            _executionQueue.Enqueue(command);     
+            _executionQueue.Enqueue(command);
+            
+            YLogger.Verbose($"CommandInvoker] ExecuteCommand) just enqueded: {command}");
         }
 
         private void Update()
@@ -38,6 +39,7 @@ namespace Yxp.Unity.Command
             if (_executionQueue.Count > 0)
             {
                 YLogger.Verbose($"CommandInvoker] Update) callstack count: {_executionQueue.Count} - Executing next command");
+                
                 StartCoroutine(ExecuteNextCommand());
             }            
         }        

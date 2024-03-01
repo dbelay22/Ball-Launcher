@@ -29,11 +29,13 @@ namespace BallLauncher.State
             return States.Start;
         }
 
+        /*
         public override void Update()
         {
-            YLogger.Verbose($"AppStateMachine] Update) _current state is {_currentState}");
+            //YLogger.Verbose($"AppStateMachine] Update) _current state is {_currentState}");
 
             base.Update();
         }
+        */
     }
 }
