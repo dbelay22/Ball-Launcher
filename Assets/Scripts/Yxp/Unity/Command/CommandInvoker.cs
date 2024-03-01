@@ -14,29 +14,39 @@ namespace Yxp.Unity.Command
 
         private Stack<ICommand> _undoStack;
 
-        private Stack<ICommand> _callStack;
+        private Queue<ICommand> _executionQueue;
 
         private CommandInvoker() { }
 
         void Awake()
         {
             _instance = this;
-            
-            _undoStack = new Stack<ICommand>();
-            
-            _callStack = new Stack<ICommand>();
+
+            _executionQueue = new Queue<ICommand>();
+
+            _undoStack = new Stack<ICommand>();            
         }
 
         public void ExecuteCommand(ICommand command)
         {
-            _callStack.Push(command);
+            // enque command and return control
+            _executionQueue.Enqueue(command);     
+        }
 
-            StartCoroutine(ExecuteNextCommand());
-        } 
-
-        IEnumerator ExecuteNextCommand()
+        private void Update()
         {
-            ICommand nextCommand = _callStack.Pop();
+            if (_executionQueue.Count > 0)
+            {
+                YLogger.Verbose($"CommandInvoker] Update) callstack count: {_executionQueue.Count} - Executing next command");
+                StartCoroutine(ExecuteNextCommand());
+            }            
+        }        
+
+        private IEnumerator ExecuteNextCommand()
+        {
+            ICommand nextCommand = _executionQueue.Dequeue();
+
+            YLogger.Verbose($"CommandInvoker] ExecuteNextCommand) nextCommand: {nextCommand} - executing...");
 
             if (nextCommand == null)
             {
@@ -45,19 +55,32 @@ namespace Yxp.Unity.Command
 
             nextCommand.Execute();
 
+            YLogger.Verbose($"CommandInvoker] ExecuteNextCommand) put command on Undo stack");            
             _undoStack.Push(nextCommand);
 
             yield return null;
         }
 
-        public void UndoLastCommand()
+        public bool UndoLastCommand()
         {
-            if (_undoStack.Count > 0)
+            if (_undoStack.Count < 1)
             {
-                ICommand lastCommand = _undoStack.Pop();
-
-                lastCommand.Undo();
+                // nothing to undo
+                return false;
             }
+
+            ICommand lastCommand = _undoStack.Pop();
+
+            if (lastCommand == null)            
+            {
+                YLogger.Error($"CommandInvoker] UndoLastCommand) lastCommand is null");
+                return false;
+            }
+
+            YLogger.Verbose($"CommandInvoker] UndoLastCommand) Undoing now...{lastCommand}");
+            lastCommand.Undo();
+
+            return true;
         }
     }
 }
