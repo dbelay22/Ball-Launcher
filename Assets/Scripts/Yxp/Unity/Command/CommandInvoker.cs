@@ -31,14 +31,14 @@ namespace Yxp.Unity.Command
             // enque command and return control
             _executionQueue.Enqueue(command);
             
-            YLogger.Verbose($"CommandInvoker] ExecuteCommand) just enqueded: {command}");
+            //YLogger.Verbose($"CommandInvoker] ExecuteCommand) just enqueded: {command}");
         }
 
         private void Update()
         {
             if (_executionQueue.Count > 0)
             {
-                YLogger.Verbose($"CommandInvoker] Update) callstack count: {_executionQueue.Count} - Executing next command");
+                //YLogger.Verbose($"CommandInvoker] Update) callstack count: {_executionQueue.Count} - Executing next command");
                 
                 StartCoroutine(ExecuteNextCommand());
             }            
@@ -48,7 +48,7 @@ namespace Yxp.Unity.Command
         {
             ICommand nextCommand = _executionQueue.Dequeue();
 
-            YLogger.Verbose($"CommandInvoker] ExecuteNextCommand) nextCommand: {nextCommand} - executing...");
+            //YLogger.Verbose($"CommandInvoker] ExecuteNextCommand) nextCommand: {nextCommand} - executing...");
 
             if (nextCommand == null)
             {
@@ -57,7 +57,7 @@ namespace Yxp.Unity.Command
 
             nextCommand.Execute();
 
-            YLogger.Verbose($"CommandInvoker] ExecuteNextCommand) put command on Undo stack");            
+            //YLogger.Verbose($"CommandInvoker] ExecuteNextCommand) put command on Undo stack");            
             _undoStack.Push(nextCommand);
 
             yield return null;
@@ -79,7 +79,7 @@ namespace Yxp.Unity.Command
                 return false;
             }
 
-            YLogger.Verbose($"CommandInvoker] UndoLastCommand) Undoing now...{lastCommand}");
+            //YLogger.Verbose($"CommandInvoker] UndoLastCommand) Undoing now...{lastCommand}");
             lastCommand.Undo();
 
             return true;

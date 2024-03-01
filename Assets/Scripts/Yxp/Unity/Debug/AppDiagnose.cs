@@ -35,6 +35,7 @@ namespace Yxp.Debug
         {
             if (enabled)
             {
+                YLogger.Verbose($"AppDiagnose] Target FrameRate: {Application.targetFrameRate}");                
                 YLogger.Verbose($"AppDiagnose] Quality level: {QualitySettings.GetQualityLevel()}");
                 YLogger.Verbose($"AppDiagnose] vSyncCount: {QualitySettings.vSyncCount}");
                 YLogger.Verbose($"AppDiagnose] particleRaycastBudget: {QualitySettings.particleRaycastBudget}");
@@ -54,7 +55,10 @@ namespace Yxp.Debug
             {
                 Application.lowMemory -= OnLowMemory;
 
-                StopCoroutine(_diagnoseHeapCoroutine);
+                if (_diagnoseHeapCoroutine != null)
+                {
+                    StopCoroutine(_diagnoseHeapCoroutine);
+                }                
             }
         }
 

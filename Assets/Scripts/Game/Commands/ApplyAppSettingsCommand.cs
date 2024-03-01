@@ -32,7 +32,7 @@ namespace BallLauncher.Commands
 
             _previousFramerate = Application.targetFrameRate;
 
-            YLogger.Debug($"ApplyAppSettingsCommand] * Setting frame rate to {_appSettings.TargetFramerate}");
+            //YLogger.Debug($"ApplyAppSettingsCommand] * Setting frame rate to {_appSettings.TargetFramerate}");
 
             Application.targetFrameRate = _appSettings.TargetFramerate;
 
