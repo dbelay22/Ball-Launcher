@@ -10,8 +10,11 @@ namespace Yxp.Debug
         public static AppDiagnose Instance { get; private set; }
 
         [Header("Settings")]
-        [SerializeField] private bool _diagnoseMemory;
         [SerializeField] private bool _diagnoseRendering;
+
+        [Header("Memory")]
+        [SerializeField] private bool _diagnoseMemory;
+        [SerializeField] [Range(3, 10)] private float _diagnoseFrequencySeconds = 3f;
 
         Coroutine _diagnoseHeapCoroutine;
 
@@ -78,7 +81,7 @@ namespace Yxp.Debug
             {
                 YLogger.Verbose($"AppDiagnose] DiagnoseMemory) heap size: {GetHeapSize()}");
 
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(_diagnoseFrequencySeconds);
             }
         }
 
