@@ -13,7 +13,7 @@ namespace BallLauncher.Core
 
         void Awake()
         {
-            _appStateMachine = new AppStateMachine(this);
+            _appStateMachine = new AppStateMachine(this);            
         }
 
         void Start()
