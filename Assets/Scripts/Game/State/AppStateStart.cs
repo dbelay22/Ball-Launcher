@@ -23,6 +23,7 @@ namespace BallLauncher.State
         public void Enter()
         {
             _command = new ApplyAppSettingsCommand(_app.Settings);
+
             CommandInvoker.Instance.ExecuteCommand(_command);
         }
 

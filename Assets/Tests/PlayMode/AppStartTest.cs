@@ -44,7 +44,7 @@ public class AppStartTest
     [UnityTest, Order(3)]
     public IEnumerator YLoggerComponentInstance()
     {
-        YLoggerComponent[] loggerComponents = ObjectUtils.FastFindObjectsOfType<YLoggerComponent>();
+        YLoggerBehaviour[] loggerComponents = ObjectUtils.FastFindObjectsOfType<YLoggerBehaviour>();
 
         Assert.AreEqual(1, loggerComponents.Length);
 

@@ -8,58 +8,43 @@ namespace Yxp.Debug
         Error = 20
     }
 
+    public class YLoggerSettings
+    {
+        public bool Enabled { get; set; }
+        public YLogLevel LogLevel { get; set; }
+        public bool DecorateWithTimestamp { get; set; }
+
+        public YLoggerSettings(bool enabled, YLogLevel level, bool decorateWithTimestamp)
+        {
+            Enabled = enabled;
+            LogLevel = level;
+            DecorateWithTimestamp = decorateWithTimestamp;
+        }
+    }
+
+
     public static class YLogger
     {
-        public static bool Enabled { get; set; }               
-        public static YLogLevel LogLevel { get; set; }
+        public static bool Enabled { get { return _settings.Enabled; } }
+        public static YLogLevel LogLevel { get { return _settings.LogLevel; } }
         
         private static ILogger _currentLogger;
 
-        private static bool _decorateWithTimestamp;
+        private static YLoggerSettings _settings;
 
         static YLogger()
         {
-            Enabled = false;
-            LogLevel = YLogLevel.Warning;
+            _settings = new YLoggerSettings(enabled: false, level: YLogLevel.Warning, decorateWithTimestamp: false);
         }
-
-        public static void UseLogger(ILogger logger)
+        
+        internal static void UseLogger(ILogger logger)
         {
-            Enabled = true;            
             _currentLogger = logger;
         }
 
-        public static void Verbose(object message, object sender = null)
+        internal static void UseSettings(YLoggerSettings settings)
         {
-            if (!canLog(YLogLevel.Verbose)) return;
-
-            _currentLogger.Verbose(message, sender, _decorateWithTimestamp);
-        }
-
-        public static void Debug(object message, object sender = null)
-        {
-            if (!canLog(YLogLevel.Debug)) return;
-
-            _currentLogger.Debug(message, sender, _decorateWithTimestamp);
-        }
-
-        public static void Warning(object message, object sender = null)
-        {
-            if (!canLog(YLogLevel.Warning)) return;
-
-            _currentLogger.Warning(message, sender, _decorateWithTimestamp);
-        }
-
-        public static void Error(object message, object sender = null)
-        {
-            if (!canLog(YLogLevel.Error)) return;
-
-            _currentLogger.Error(message, sender, _decorateWithTimestamp);
-        }
-
-        public static void SetDecorateWithTimestamp(bool enabled)
-        {
-            _decorateWithTimestamp = enabled;
+            _settings = settings;
         }
 
         private static bool canLog(YLogLevel level)
@@ -72,6 +57,38 @@ namespace Yxp.Debug
 
             return true;
         }
+
+        #region Public methods
+
+        public static void Verbose(object message, object sender = null)
+        {
+            if (!canLog(YLogLevel.Verbose)) return;
+
+            _currentLogger.Verbose(message, sender, _settings.DecorateWithTimestamp);
+        }
+
+        public static void Debug(object message, object sender = null)
+        {
+            if (!canLog(YLogLevel.Debug)) return;
+
+            _currentLogger.Debug(message, sender, _settings.DecorateWithTimestamp);
+        }
+
+        public static void Warning(object message, object sender = null)
+        {
+            if (!canLog(YLogLevel.Warning)) return;
+
+            _currentLogger.Warning(message, sender, _settings.DecorateWithTimestamp);
+        }
+
+        public static void Error(object message, object sender = null)
+        {
+            if (!canLog(YLogLevel.Error)) return;
+
+            _currentLogger.Error(message, sender, _settings.DecorateWithTimestamp);
+        }
+
+        #endregion
 
     }
 

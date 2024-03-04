@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6636061311763013619}
   - component: {fileID: 6636061311763013616}
-  - component: {fileID: 6636061311763013617}
+  - component: {fileID: 9134819063992242170}
   - component: {fileID: 1990244481606196717}
   - component: {fileID: 182932812}
   m_Layer: 6
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180025054dc1ed84ca0c01487f4267e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6636061311763013617
+--- !u!114 &9134819063992242170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,14 +56,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6636061311763013582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ed922f2a56b2145a395cc9feb95d28, type: 3}
+  m_Script: {fileID: 11500000, guid: ff853ec43e0983d4eaa658bf5e730f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _showLogs: 1
   _logLevel: 0
   _showTimestamp: 1
-  _prodSettings: {fileID: 11400000, guid: 0a60f2e6bd1cb0d4d8471641051335c4, type: 2}
   _generateDebugLogs: 0
+  _debugLogMessage: 'YLogger: This is a debug log message.'
+  _warningLogMessage: 'YLogger: This is a warning log message.'
+  _errorLogMessage: 'YLogger: This is a error log message.'
+  _prodSettings: {fileID: 11400000, guid: d9b7274a58578a349bb87aea96c59b6e, type: 2}
 --- !u!114 &1990244481606196717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,5 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7458019dcc533be4db8781e9618cb1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _diagnoseMemory: 1
-  _diagnoseRendering: 1
+  _diagnoseRendering: 0
+  _diagnoseMemory: 0
+  _diagnoseFrequencySeconds: 5.76

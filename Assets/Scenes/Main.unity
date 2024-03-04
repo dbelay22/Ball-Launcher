@@ -187,37 +187,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 182932812, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
-      propertyPath: _diagnoseMemory
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 182932812, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
-      propertyPath: _diagnoseRendering
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 182932812, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
-      propertyPath: _diagnoseFrequencySeconds
-      value: 5.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 182932812, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
-      propertyPath: _diagnoseMemoryFrequencySeconds
-      value: 6.41
-      objectReference: {fileID: 0}
     - target: {fileID: 6636061311763013582, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
       propertyPath: m_Name
       value: Yxp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636061311763013617, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
-      propertyPath: _logLevel
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636061311763013617, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
-      propertyPath: _showLogs
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636061311763013617, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
-      propertyPath: _showTimestamp
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6636061311763013619, guid: 5bee7f31c4f946344b3f164bf3c62b2a, type: 3}
       propertyPath: m_RootOrder

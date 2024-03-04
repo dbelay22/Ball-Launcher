@@ -1,8 +1,8 @@
-using BallLauncher.Core;
+using BallLauncher.State;
 using Yxp.Debug;
 using Yxp.State;
 
-namespace BallLauncher.State
+namespace BallLauncher.Core
 {
     public class AppStateMachine : StateMachine<AppStateMachine.States>
     {

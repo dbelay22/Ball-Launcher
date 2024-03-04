@@ -1,4 +1,3 @@
-
 namespace Yxp.Debug
 {
     public interface ILogger
