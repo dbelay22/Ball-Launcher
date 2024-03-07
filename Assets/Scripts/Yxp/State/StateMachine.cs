@@ -3,12 +3,6 @@ using System.Collections.Generic;
 
 namespace Yxp.State
 {
-    // TODO:
-    // 1. Refactor to IStateMachine interface
-    // 2. Move logic here to UnityStateMachine (implements IStateMachine)
-    // 3. Make IState methods return IEnumerator
-    // 4. On UnityStateMachine use StartCoroutine for executing state methods: Enter / Update / Exit
-
     public abstract class StateMachine<EState> where EState : Enum
     {
         protected Dictionary<EState, IState<EState>> _states = new Dictionary<EState, IState<EState>>();
