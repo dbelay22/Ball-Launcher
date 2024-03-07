@@ -8,11 +8,11 @@ namespace Yxp.Debug
         Error = 20
     }
 
-    public class YLoggerSettings
+    public struct YLoggerSettings
     {
-        public bool Enabled { get; set; }
-        public YLogLevel LogLevel { get; set; }
-        public bool DecorateWithTimestamp { get; set; }
+        public bool Enabled;
+        public YLogLevel LogLevel;
+        public bool DecorateWithTimestamp;
 
         public YLoggerSettings(bool enabled, YLogLevel level, bool decorateWithTimestamp)
         {
