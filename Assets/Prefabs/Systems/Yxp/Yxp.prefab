@@ -93,4 +93,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _diagnoseRendering: 0
   _diagnoseMemory: 0
-  _diagnoseFrequencySeconds: 5.76
+  _diagnoseFrequencySeconds: 3
