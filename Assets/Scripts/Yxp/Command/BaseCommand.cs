@@ -6,18 +6,23 @@ namespace Yxp.Command
     {
         protected bool _finishedExecuting = false;
 
-        public bool FinishedExecuting { get { return _finishedExecuting; } }
+        public bool FinishedExecuting { get { return _finishedExecuting; } protected set { _finishedExecuting = value; } }
 
         protected BaseCommand()
         {
-            _finishedExecuting = false;
+            FinishedExecuting = false;
         }
 
         public virtual void Execute()
         {
-            throw new NotImplementedException();
+            FinishedExecuting = false;
         }
-        
+
+        protected void OnFinishedExecuting()
+        {
+            FinishedExecuting = true;
+        }
+
         public virtual void Undo()
         {
             throw new NotImplementedException();

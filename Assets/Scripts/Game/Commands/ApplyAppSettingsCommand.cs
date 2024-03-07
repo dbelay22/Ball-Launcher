@@ -19,7 +19,7 @@ namespace BallLauncher.Commands
 
         public override void Execute()
         {
-            _finishedExecuting = false;
+            base.Execute();
 
             if (_appSettings == null)
             {
@@ -36,7 +36,7 @@ namespace BallLauncher.Commands
 
             Application.targetFrameRate = _appSettings.TargetFramerate;
 
-            _finishedExecuting = true;
+            OnFinishedExecuting();
         }
 
         public override void Undo()
