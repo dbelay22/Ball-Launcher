@@ -21,7 +21,7 @@ namespace BallLauncher.State
             _app = app;
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             string gameplaySceneName = _app.Settings.GameplayScene.name;
 
@@ -42,7 +42,7 @@ namespace BallLauncher.State
             return StateId;
         }
 
-        public void Exit()
+        public void OnExit()
         {
         }
     }

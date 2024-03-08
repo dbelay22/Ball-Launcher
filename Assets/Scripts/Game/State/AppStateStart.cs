@@ -20,7 +20,7 @@ namespace BallLauncher.State
             _app = app;
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             _command = new ApplyAppSettingsCommand(_app.Settings);
 
@@ -42,7 +42,7 @@ namespace BallLauncher.State
         {
         }
 
-        public void Exit()
+        public void OnExit()
         {
         }
     }

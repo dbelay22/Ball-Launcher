@@ -19,7 +19,7 @@ namespace BallLauncher.State
             _app = app;
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             Application.Quit();
         }
@@ -33,7 +33,7 @@ namespace BallLauncher.State
             return StateId;
         }
 
-        public void Exit()
+        public void OnExit()
         {
         }
     }

@@ -6,12 +6,12 @@ namespace Yxp.State
     {
         public EState StateId { get; }        
         
-        public void Enter();
+        public void OnEnter();
         
         public void Update();        
         
         public EState GetNextState();
         
-        public void Exit();        
+        public void OnExit();        
     }
 }

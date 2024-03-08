@@ -30,7 +30,7 @@ namespace Yxp.Unity.State
 
             _currentState = _states[startingState];
 
-            _currentState.Enter();
+            _currentState.OnEnter();
         }
 
         public virtual void Update()
@@ -57,18 +57,18 @@ namespace Yxp.Unity.State
         {
             _isTransitioningState = true;
 
-            _currentState.Exit();
+            _currentState.OnExit();
 
             _currentState = _states[nextStateId];
 
-            _currentState.Enter();
+            _currentState.OnEnter();
 
             _isTransitioningState = false;
         }
 
         public void Stop()
         {
-            _currentState.Exit();
+            _currentState.OnExit();
         }
     }
 }
