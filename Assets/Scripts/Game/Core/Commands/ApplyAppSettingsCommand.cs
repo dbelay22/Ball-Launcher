@@ -3,7 +3,7 @@ using Yxp.Command;
 using BallLauncher.Core;
 using Yxp.Debug;
 
-namespace BallLauncher.Commands
+namespace BallLauncher.Core.Commands
 {
     public class ApplyAppSettingsCommand : BaseCommand
     {

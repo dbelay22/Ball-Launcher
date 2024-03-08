@@ -1,11 +1,8 @@
-using BallLauncher.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Yxp.Debug;
 using Yxp.State;
-using Yxp.Unity.Command;
 
-namespace BallLauncher.State
+namespace BallLauncher.Core.States
 {
     public class AppStateGameplay : IState<AppStateMachine.States>
     {

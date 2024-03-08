@@ -1,9 +1,8 @@
-using BallLauncher.Commands;
-using BallLauncher.Core;
+using BallLauncher.Core.Commands;
 using Yxp.State;
 using Yxp.Unity.Command;
 
-namespace BallLauncher.State
+namespace BallLauncher.Core.States
 {
     public class AppStateStart : IState<AppStateMachine.States>
     {

@@ -1,9 +1,7 @@
-using BallLauncher.Core;
-using BallLauncher.State;
 using UnityEngine;
 using Yxp.State;
 
-namespace BallLauncher.State
+namespace BallLauncher.Core.States
 {
     public class AppStateExitToOS : IState<AppStateMachine.States>
     {

@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Yxp.Debug;
 public class YLoggerTest
 {
     [Test]

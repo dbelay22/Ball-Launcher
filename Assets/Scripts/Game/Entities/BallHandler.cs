@@ -5,7 +5,7 @@ using Yxp.Debug;
 
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
-namespace BallLauncher.Components
+namespace BallLauncher.Entities
 {
     public class BallHandler : MonoBehaviour
     {

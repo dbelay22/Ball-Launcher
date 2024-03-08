@@ -1,4 +1,3 @@
-using BallLauncher.State;
 using UnityEngine;
 
 namespace BallLauncher.Core
@@ -26,14 +25,6 @@ namespace BallLauncher.Core
 
                 _appStateMachine.Initialize(this);
             }
-        }
-
-        void Start()
-        {
-        }
-
-        void Update()
-        {
         }
 
         void OnDestroy()
