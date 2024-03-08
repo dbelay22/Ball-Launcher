@@ -1,7 +1,6 @@
 using BallLauncher.State;
 using Yxp.Debug;
 using Yxp.Unity.State;
-using Yxp.State;
 
 namespace BallLauncher.Core
 {

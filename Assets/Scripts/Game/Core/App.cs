@@ -13,7 +13,7 @@ namespace BallLauncher.Core
 
         void OnEnable()
         {
-            InitializeStateMachine();   
+            InitializeStateMachine();
         }
 
         void InitializeStateMachine()

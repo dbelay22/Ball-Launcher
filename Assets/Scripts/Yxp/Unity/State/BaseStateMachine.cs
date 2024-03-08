@@ -15,14 +15,20 @@ namespace Yxp.Unity.State
 
         protected TContext _context;
 
+
+        #region abstract methods
+        
+        // Should return the starting state (enum)
+        public abstract EState CreateStateInstances();
+
+        #endregion
+
         public virtual void Initialize(TContext context)
         {
             _context = context;
         }
 
-        // Should return the starting state (enum)
-        public abstract EState CreateStateInstances();
-
+        #region IStateMachine
 
         public virtual void Start()
         {
@@ -53,6 +59,14 @@ namespace Yxp.Unity.State
             }
         }
 
+        public void Stop()
+        {
+            _currentState.OnExit();
+        }
+
+        #endregion
+
+
         private void TransitionToState(EState nextStateId)
         {
             _isTransitioningState = true;
@@ -66,9 +80,6 @@ namespace Yxp.Unity.State
             _isTransitioningState = false;
         }
 
-        public void Stop()
-        {
-            _currentState.OnExit();
-        }
+        
     }
 }
