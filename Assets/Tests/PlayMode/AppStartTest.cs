@@ -7,6 +7,7 @@ using Ypx.Unity.Debug;
 using App = BallLauncher.Core.App;
 using Yxp.Unity.Command;
 using Yxp.Unity.Utils;
+using BallLauncher.Core;
 
 public class AppStartTest
 {
@@ -66,6 +67,18 @@ public class AppStartTest
     }
 
     [UnityTest, Order(5)]
+    public IEnumerator AppStateMachineInstance()
+    {
+        AppStateMachine[] appStateMachines = ObjectUtils.FastFindObjectsOfType<AppStateMachine>();
+
+        Assert.AreEqual(1, appStateMachines.Length);
+
+        Assert.NotNull(appStateMachines[0]);
+
+        yield return null;
+    }
+
+    [UnityTest, Order(6)]
     public IEnumerator AppFramerateMobile()
     {
         Assert.AreEqual(30, Application.targetFrameRate);

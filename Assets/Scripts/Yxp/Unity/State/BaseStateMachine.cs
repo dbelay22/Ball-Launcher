@@ -1,17 +1,25 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Yxp.State;
 
-namespace Yxp.State
+namespace Yxp.Unity.State
 {
-    public abstract class StateMachine<EState> where EState : Enum
+    public abstract class BaseStateMachine<EState, TContext> : MonoBehaviour, IStateMachine where EState : Enum
     {
         protected Dictionary<EState, IState<EState>> _states = new Dictionary<EState, IState<EState>>();
 
         protected IState<EState> _currentState;
 
         protected bool _isTransitioningState = false;
-        
-        
+
+        protected TContext _context;
+
+        public virtual void Initialize(TContext context)
+        {
+            _context = context;
+        }
+
         // Should return the starting state (enum)
         public abstract EState CreateStateInstances();
 
@@ -21,7 +29,7 @@ namespace Yxp.State
             EState startingState = CreateStateInstances();
 
             _currentState = _states[startingState];
-            
+
             _currentState.Enter();
         }
 
@@ -45,12 +53,12 @@ namespace Yxp.State
             }
         }
 
-        protected void TransitionToState(EState nextStateId)
+        private void TransitionToState(EState nextStateId)
         {
             _isTransitioningState = true;
 
             _currentState.Exit();
-            
+
             _currentState = _states[nextStateId];
 
             _currentState.Enter();
@@ -58,10 +66,9 @@ namespace Yxp.State
             _isTransitioningState = false;
         }
 
-        public virtual void Destroy()
+        public void Stop()
         {
             _currentState.Exit();
         }
-
     }
 }

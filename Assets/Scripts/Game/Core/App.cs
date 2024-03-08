@@ -11,19 +11,34 @@ namespace BallLauncher.Core
 
         AppStateMachine _appStateMachine;
 
-        void Awake()
+        void OnEnable()
         {
-            _appStateMachine = new AppStateMachine(this);            
+            InitializeStateMachine();   
+        }
+
+        void InitializeStateMachine()
+        {
+            gameObject.TryGetComponent(out _appStateMachine);
+
+            if (_appStateMachine == null)
+            {
+                _appStateMachine = gameObject.AddComponent<AppStateMachine>();
+
+                _appStateMachine.Initialize(this);
+            }
         }
 
         void Start()
         {
-            _appStateMachine.Start();
         }
 
         void Update()
         {
-            _appStateMachine.Update();
+        }
+
+        void OnDestroy()
+        {
+            _appStateMachine.Stop();
         }
     }
 

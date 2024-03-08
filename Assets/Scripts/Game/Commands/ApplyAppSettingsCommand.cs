@@ -2,14 +2,11 @@ using UnityEngine;
 using Yxp.Command;
 using BallLauncher.Core;
 using Yxp.Debug;
-using Yxp.Unity.Command;
 
 namespace BallLauncher.Commands
 {
     public class ApplyAppSettingsCommand : BaseCommand
     {
-        int _previousFramerate = 0;
-
         AppSettings _appSettings;
 
         public ApplyAppSettingsCommand(AppSettings appSettings)
@@ -25,15 +22,12 @@ namespace BallLauncher.Commands
             {
                 YLogger.Error("ApplyAppSettingsCommand] Settings are missing!");
                 
-                _finishedExecuting = true;
+                OnFinishedExecuting();
                 
                 return;
             }
 
-            _previousFramerate = Application.targetFrameRate;
-
-            //YLogger.Debug($"ApplyAppSettingsCommand] * Setting frame rate to {_appSettings.TargetFramerate}");
-
+            YLogger.Verbose($"ApplyAppSettingsCommand] * Setting frame rate to {_appSettings.TargetFramerate}");
             Application.targetFrameRate = _appSettings.TargetFramerate;
 
             OnFinishedExecuting();

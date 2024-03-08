@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showLogs: 1
-  _logLevel: 0
+  _logLevel: 1
   _showTimestamp: 1
   _generateDebugLogs: 0
   _debugLogMessage: 'YLogger: This is a debug log message.'
