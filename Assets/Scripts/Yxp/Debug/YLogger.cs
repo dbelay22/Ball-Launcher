@@ -1,3 +1,5 @@
+using System;
+
 namespace Yxp.Debug
 {
     public enum YLogLevel
@@ -8,6 +10,7 @@ namespace Yxp.Debug
         Error = 20
     }
 
+    [Serializable]
     public struct YLoggerSettings
     {
         public bool Enabled;
@@ -21,7 +24,6 @@ namespace Yxp.Debug
             DecorateWithTimestamp = decorateWithTimestamp;
         }
     }
-
 
     public static class YLogger
     {

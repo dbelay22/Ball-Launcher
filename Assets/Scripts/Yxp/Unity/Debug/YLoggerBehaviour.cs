@@ -16,17 +16,15 @@ namespace Ypx.Unity.Debug
     public class YLoggerBehaviour : MonoBehaviour
     {
         [Header("Live Dev Settings")]
-        [SerializeField] bool _showLogs = false;
-        [SerializeField] YLogLevel _logLevel = YLogLevel.Warning;
-        [SerializeField] bool _showTimestamp = false;
+        [SerializeField] YLoggerSettings _liveSettings;
 
-        [SerializeField] bool _generateDebugLogs;        
+        [SerializeField] bool _generateDebugLogs;
         [SerializeField] string _debugLogMessage;
         [SerializeField] string _warningLogMessage;
         [SerializeField] string _errorLogMessage;
 
         [Header("Production")]
-        [SerializeField] YLoggerBehaviourSettings _prodSettings;
+        [SerializeField] YLoggerBehaviourData _productionBehaviourData;
         
         private YLoggerController _controller;
 
@@ -56,13 +54,13 @@ namespace Ypx.Unity.Debug
             if (isUnityEditor)
             {
                 // use behaviour serialized values
-                return new YLoggerSettings(_showLogs, _logLevel, _showTimestamp);
+                return _liveSettings;
             }
             else
             {
-                if (_prodSettings != null)
+                if (_productionBehaviourData != null)
                 {
-                    return new YLoggerSettings(_prodSettings.ShowLogs, _prodSettings.LogLevel, _prodSettings.DecorateWithTimestamp);
+                    return _productionBehaviourData.settings;
                 }
                 else
                 {
@@ -74,21 +72,19 @@ namespace Ypx.Unity.Debug
 
         void InitializeLiveSettings(YLoggerSettings settings)
         {
-            _showLogs = settings.Enabled;
-            _logLevel = settings.LogLevel;
-            _showTimestamp = settings.DecorateWithTimestamp;
+            _liveSettings = settings;
         }
 
         void OnLiveSettingsChange()
         {
-            _controller.ApplySettings(new YLoggerSettings(_showLogs, _logLevel, _showTimestamp));
+            _controller.ApplySettings(_liveSettings);
         }
 
         void OnDisable()
         {
             UnityEngine.Debug.Log($"({Time.time}) YLoggerComponent OnDisable)");
 
-            _showLogs = false;
+            _liveSettings.Enabled = false;
 
             OnLiveSettingsChange();
         }

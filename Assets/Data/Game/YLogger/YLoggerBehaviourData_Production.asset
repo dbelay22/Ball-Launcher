@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6f049af8fdc0944baf14f7fb49544c5, type: 3}
-  m_Name: YLoggerSettingsProduction
+  m_Name: YLoggerBehaviourData_Production
   m_EditorClassIdentifier: 
-  ShowLogs: 0
-  LogLevel: 10
-  DecorateWithTimestamp: 0
+  settings:
+    Enabled: 0
+    LogLevel: 10
+    DecorateWithTimestamp: 0

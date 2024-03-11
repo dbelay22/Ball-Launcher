@@ -59,14 +59,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff853ec43e0983d4eaa658bf5e730f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showLogs: 1
-  _logLevel: 1
-  _showTimestamp: 1
+  _liveSettings:
+    Enabled: 1
+    LogLevel: 1
+    DecorateWithTimestamp: 1
   _generateDebugLogs: 0
   _debugLogMessage: 'YLogger: This is a debug log message.'
   _warningLogMessage: 'YLogger: This is a warning log message.'
   _errorLogMessage: 'YLogger: This is a error log message.'
-  _prodSettings: {fileID: 11400000, guid: d9b7274a58578a349bb87aea96c59b6e, type: 2}
+  _productionBehaviourData: {fileID: 11400000, guid: 0501a7c5e6b9ade41bcc9501f22bf88f, type: 2}
 --- !u!114 &1990244481606196717
 MonoBehaviour:
   m_ObjectHideFlags: 0
